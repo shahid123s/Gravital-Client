@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+    background-color: inherit;
+}
+
+div{
+    background-color: #f9f9f9;
+}
+
+h1{
+    text-align: start;
+}
+
+.custom-cropper div {
+    @apply bg-transparent;
+  }
+
+.custom-cropper img {
+    @apply max-h-[70vh]
+}
+
