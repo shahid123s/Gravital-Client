@@ -56,7 +56,6 @@ function App() {
               <Route path='users' element={<AdminUsersList />} />
               <Route path='posts' element={<AdminPosts />} />
               <Route path='reports' element={<AdminReport/>} />
-
             </Route>
           </Routes>
         </Router>

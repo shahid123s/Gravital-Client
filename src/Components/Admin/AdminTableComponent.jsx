@@ -6,6 +6,8 @@ import Spinner from '../Spinner';
 import Pagination from '../Pagination';
 import actionManagement, { banUser } from '../../services/admin/actions/moderationsActions';
 import AdminTableBody from './AdminTableBody'
+import { useNavigate } from 'react-router-dom';
+import ReportModal from '../Modals/ReportModal';
 function AdminTableComponent({
   search,
   fetchData,
@@ -17,9 +19,10 @@ function AdminTableComponent({
   TABLE_HEADERS
 }) {
 
-
   const [isOpen, setIsOpen] = useState(false);
   const [userData, setUserData] = useState('');
+  const [reportModal, setReportModal] = useState(false)
+
 
   useEffect(() => {
     fetchData()
@@ -31,9 +34,20 @@ function AdminTableComponent({
     setCurrentPage(page);
   };
 
-  const handleAction = async (action, userId) => {
+  const handleAction = async (action, dataId) => {
     try {
-      await actionManagement(action, userId)
+      console.log(dataId)
+      if (action === 'View Details') {
+        const reportDetails = await adminAxiosInstance.get('/reports', {
+          params: {
+            reportId: dataId
+          }
+        })
+        setReportModal(true)
+        return
+      }
+
+      await actionManagement(action, dataId)
       fetchData()
     } catch (error) {
       toast.error(error.message);
@@ -41,11 +55,17 @@ function AdminTableComponent({
   };
 
 
-  const handleUser = async (userId) => {
+  const hanldeModalClick = async (dataId, title) => {
+
     try {
-      const response = await adminAxiosInstance.get('/user-data/', { params: { userId } });
-      setUserData(response.data.user);
-      setIsOpen(true);
+      if(title === 'user'){
+        const response = await adminAxiosInstance.get('/user-data/', { params: { userId: dataId } });
+        setUserData(response.data.user);
+        setIsOpen(true);
+      } else if(title === 'post'){
+        toast.success('post')
+      }
+      
     } catch (error) {
       toast.error(error.message);
     }
@@ -53,6 +73,7 @@ function AdminTableComponent({
 
   const handleClose = () => {
     setIsOpen(false);
+    setReportModal(false)
   };
 
   return (
@@ -62,20 +83,23 @@ function AdminTableComponent({
           <table className="min-w-full bg-gray-800 text-gray-300">
             <thead>
               <tr className="bg-gray-700">
-                {TABLE_HEADERS.map(header => <th className="px-4 py-2 text-left">{header}</th>)}
+                {TABLE_HEADERS.map((header, index) => <th key={index} className="px-4 py-2 text-left ">{header}</th>)}
               </tr>
             </thead>
             <AdminTableBody
               dataCollection={fetchedDatas}
-              hanldeClick={handleUser}
+              hanldeClick={hanldeModalClick}
               handleAction={handleAction}
             />
-            {isOpen && <UserModal isOpen={isOpen} onClose={handleClose} userData={userData} />}
-
-
 
           </table>
         )}
+
+        {isOpen && <UserModal isOpen={isOpen} onClose={handleClose} userData={userData} />}
+        {reportModal &&
+          <ReportModal
+            setClose={handleClose}
+          />}
       </div>
       <div className="flex justify-end mt-2 text-gray-400 bg-inherit">
         <Pagination

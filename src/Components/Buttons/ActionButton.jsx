@@ -7,7 +7,7 @@ function ActionButton({ buttonColor, title, handleAction, isDisabled, actionId})
         : buttonColor === 'red'
             ? 'bg-red-500'
             : buttonColor === 'green'
-                ? 'bg-lime-600' : '';
+                ? 'bg-lime-600' : 'bg-[#4A90E2]';
 
 
     return (

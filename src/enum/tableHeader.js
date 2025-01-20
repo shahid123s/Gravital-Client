@@ -17,10 +17,9 @@ const TABLE_HEADERS = {
     ],
     REPORT_HEADER: [
         "Sl.No",
-        'Reporter Username',
-        'Reported Username',
-        'Post Id',
-        'Message',
+        'Post Image/ User Profile',
+        'Report Type',
+        'Report Count',
         'Status',
         'Action',
     ]

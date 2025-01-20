@@ -4,7 +4,7 @@ import ActionButton from '../Buttons/ActionButton';
 import actionManagement from '../../services/admin/actions/moderationsActions';
 
 
-function AdminTableBody({ dataCollection, hanldeClick , handleAction}) {
+function AdminTableBody({ dataCollection, hanldeClick, handleAction }) {
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
 
@@ -12,25 +12,16 @@ function AdminTableBody({ dataCollection, hanldeClick , handleAction}) {
     setDropdownOpen(dropdownOpen === id ? null : id);
   };
 
-  // const handleAction = async (action, dataId) => {
-  //   try {
-  //     await actionManagement(action, dataId)
-  //   } catch (error) {
-
-  //   }
-  // }
-
-
   return (
     <tbody>
       {dataCollection.length > 0 ? dataCollection.map((data, index) => (
-        <tr key={data._id} className="border-b border-gray-700">
+        <tr key={(data._id)} className="border-b border-gray-700 ">
           <td className="px-4 py-2">{index + 1}</td>
-          <td className="px-4 py-2">
-            <img src={data.profileImage || data.fileName} className="w-14 rounded-xl" alt="data profile" />
+          <td className="px-10 py-2 " >
+            <img src={data.profileImage || data.fileName || data.details.fileName || data.details.profileImage} className="w-14 rounded-xl " alt="data profile" />
           </td>
-          <td className="px-4 py-2" onClick={() => hanldeClick(data._id)}>{data.fullName || data.userID?.username}</td>
-          <td className="px-4 py-2" onClick={() => ''}>{data.email || data.uploadDate}</td>
+          <td className="px-4 py-2" onClick={() => hanldeClick(data._id, data.username ? 'user': data.type ? false: 'post')}>{data.fullName || data.userID?.username || data.type} </td>
+          <td className="px-4 py-2" onClick={() => ''}>{data.email || data.uploadDate || data.reportCount}</td>
           <td className="px-4 py-2">{data?.status || calculateStatus(data).status}</td>
           <td className="px-4 py-2">
             <button
@@ -48,6 +39,7 @@ function AdminTableBody({ dataCollection, hanldeClick , handleAction}) {
                     buttonColor={action.color}
                     actionId={data._id}
                     handleAction={handleAction}
+                    key={`${action.title}-${data._id}`}
                   />
 
                 ))}
@@ -59,7 +51,9 @@ function AdminTableBody({ dataCollection, hanldeClick , handleAction}) {
 
           </td>
         </tr>
-      )) : ''}
+      )) : <tr>
+        <td colSpan="6" className="text-center py-4">No data available</td>
+      </tr>}
     </tbody>
   )
 }
