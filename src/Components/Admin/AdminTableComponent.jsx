@@ -1,7 +1,7 @@
 import React, { act, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { adminAxiosInstance } from '../../utilities/axios';
-import UserModal from '../UserModal';
+import UserModal from '../Modals/UserModal';
 import Spinner from '../Spinner';
 import Pagination from '../Pagination';
 import actionManagement, { banUser } from '../../services/admin/actions/moderationsActions';
@@ -38,11 +38,13 @@ function AdminTableComponent({
     try {
       console.log(dataId)
       if (action === 'View Details') {
-        const reportDetails = await adminAxiosInstance.get('/reports', {
+        const reportDetails = await adminAxiosInstance.get('/report', {
           params: {
             reportId: dataId
           }
         })
+        console.log(reportDetails)
+        setUserData(reportDetails.data.reports)
         setReportModal(true)
         return
       }
@@ -99,6 +101,8 @@ function AdminTableComponent({
         {reportModal &&
           <ReportModal
             setClose={handleClose}
+            datas={userData}
+            setDatas={setUserData}
           />}
       </div>
       <div className="flex justify-end mt-2 text-gray-400 bg-inherit">

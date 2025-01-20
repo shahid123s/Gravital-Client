@@ -34,12 +34,15 @@ export const unRestrictPost = async (postId) => {
 }
 
 export const boostPost = async (postId) => {
-  const response = await adminAxiosInstance.patch('/boost-post', {postId});
+  const response = await adminAxiosInstance.patch('/boost-post', { postId });
   toast.success(response.data.message)
 }
 
-export const viewReportDetails = async (reportId) => {
-  
+export const reportAction = async (reportId, action) => {
+
+  const response = await adminAxiosInstance.patch('/report', {
+    reportId, action
+  })
 
 }
 
@@ -67,7 +70,15 @@ const actionManagement = async (action, id) => {
     case 'Boost Post':
       await boostPost(id);
       break;
-   
+    case 'Resolved':
+      await reportAction(id, 'resolved')
+      break;
+    case 'Reviewed':
+      await reportAction(id, 'reviewed')
+      break;
+    default: 
+      toast.error('No action is taking');
+      break;
   }
 
 }

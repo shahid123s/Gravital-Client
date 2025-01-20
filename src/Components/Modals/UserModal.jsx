@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import userLogo from '../assets/image.png'
+
 
 function UserModal({isOpen, onClose, userData }) {
 
