@@ -1,19 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react'
-import ProfilePic from '../assets/image.png';
 import MediaButton from '../assets/media.svg';
 import SheduleButton from '../assets/schedule.svg';
 import PollButton from '../assets/poll.svg'
-import AddPostModel from './User/AddPostModel';
-import getCroppedImg from '../utilities/imageCrop';
 import SubmitLogo from '../assets/right-arrow-submit.svg'
 import CloseLogo from '../assets/cross-button.svg'
-import Cropper from 'react-easy-crop';
-import ReactCrop, { convertToPixelCrop } from 'react-image-crop';
-import PostAddingModel from './User/PostAddingModel';
 import ImageCropModal from './User/settingsComponent/ImageCropModal';
 import { AspectRatio } from '../constants/imageDimentions';
 import { toast } from 'sonner';
-import { axiosInstance, postAxiosInstance } from '../utilities/axios';
+import { axiosInstance } from '../utilities/axios';
 import Spinner from './Spinner';
 
 function AddPostComponent({profileImage}) {

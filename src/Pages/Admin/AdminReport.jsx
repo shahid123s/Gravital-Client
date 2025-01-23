@@ -4,6 +4,7 @@ import AdminContent from '../../Components/Admin/AdminContent'
 import AdminTableComponent from '../../Components/Admin/AdminTableComponent'
 import { adminAxiosInstance } from '../../utilities/axios';
 import TABLE_HEADERS from '../../enum/tableHeader';
+import { toast } from 'sonner';
 
 function AdminReport() {
     const [search, setSearch] = useState('');
@@ -31,7 +32,7 @@ function AdminReport() {
             setIsLoading(false);
 
         } catch (error) {
-            toast.error(error.message);
+            toast .error(error.message);
 
         }
     }

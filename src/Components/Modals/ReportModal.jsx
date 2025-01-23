@@ -3,7 +3,8 @@ import ActionButton from '../Buttons/ActionButton'
 import { toast } from 'sonner';
 import actionManagement from '../../services/admin/actions/moderationsActions';
 
-function ReportModal({setClose, datas, setDatas}) {
+function ReportModal({isOpen, setClose, datas, setDatas}) {
+   if (!isOpen) return null
 
     const [actions, setActions] = useState([
         {title: 'Resolved', color: 'green' },

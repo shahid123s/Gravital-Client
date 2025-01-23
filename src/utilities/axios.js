@@ -18,12 +18,6 @@ export const adminAxiosInstance = axios.create({
 
 
 
-export const postAxiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_POST_BASE_URL,
-    withCredentials: true,
-    timeout: 10000,
-});
-
   
 
 

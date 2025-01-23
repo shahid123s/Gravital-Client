@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer, {refreshAccessToken, logout} from './feature/userSlice'
 import adminReducer, { adminLogout, refreshAdminToken } from "./feature/adminSlice";
-import {axiosInstance, adminAxiosInstance, postAxiosInstance} from "../utilities/axios";
+import {axiosInstance, adminAxiosInstance,} from "../utilities/axios";
 
 
 export const store = configureStore({

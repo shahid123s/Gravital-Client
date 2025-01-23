@@ -4,7 +4,7 @@ import MiniPostCard from './MiniPostCard'
 import { axiosInstance } from '../../utilities/axios';
 
 function UserPosts({postDetails, loading}) {
-
+  // conso
   return (
     <div className='bg-inherit text-lg text-white p-1 flex flex-col font-poppins justify-center items-center gap-10'>
        {!loading && <div className='bg-inherit flex gap-32 flex-wrap'>

@@ -8,6 +8,8 @@ import actionManagement, { banUser } from '../../services/admin/actions/moderati
 import AdminTableBody from './AdminTableBody'
 import { useNavigate } from 'react-router-dom';
 import ReportModal from '../Modals/ReportModal';
+import AdminPostDetailsModal from '../Modals/AdminPostDetailsModal';
+import { postDetails } from '../../services/admin/post/getPostDetails';
 function AdminTableComponent({
   search,
   fetchData,
@@ -20,8 +22,9 @@ function AdminTableComponent({
 }) {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [userData, setUserData] = useState('');
+  const [dataDetails, setDataDetails] = useState('');
   const [reportModal, setReportModal] = useState(false)
+  const [postModal, setPostModal] = useState(false)
 
 
   useEffect(() => {
@@ -44,7 +47,7 @@ function AdminTableComponent({
           }
         })
         console.log(reportDetails)
-        setUserData(reportDetails.data.reports)
+        setDataDetails(reportDetails.data.reports)
         setReportModal(true)
         return
       }
@@ -58,16 +61,18 @@ function AdminTableComponent({
 
 
   const hanldeModalClick = async (dataId, title) => {
-
     try {
-      if(title === 'user'){
+      if (title === 'user') {
         const response = await adminAxiosInstance.get('/user-data/', { params: { userId: dataId } });
-        setUserData(response.data.user);
+        setDataDetails(response.data.user);
         setIsOpen(true);
-      } else if(title === 'post'){
-        toast.success('post')
+      } else if (title === 'post') {
+        
+        setDataDetails(await postDetails(dataId))
+        setPostModal(true)
+        
       }
-      
+
     } catch (error) {
       toast.error(error.message);
     }
@@ -97,13 +102,25 @@ function AdminTableComponent({
           </table>
         )}
 
-        {isOpen && <UserModal isOpen={isOpen} onClose={handleClose} userData={userData} />}
-        {reportModal &&
-          <ReportModal
-            setClose={handleClose}
-            datas={userData}
-            setDatas={setUserData}
-          />}
+        <UserModal
+          isOpen={isOpen}
+          onClose={handleClose}
+          userData={dataDetails}
+        />
+
+        <AdminPostDetailsModal
+          isOpen={postModal}
+          onClose={() => setPostModal(false)}
+          postData={dataDetails}
+          handleAction = {handleAction}
+        />
+
+        <ReportModal
+          isOpen={reportModal}
+          setClose={handleClose}
+          datas={dataDetails}
+          setDatas={setDataDetails}
+        />
       </div>
       <div className="flex justify-end mt-2 text-gray-400 bg-inherit">
         <Pagination
