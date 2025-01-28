@@ -1,4 +1,5 @@
-import { adminAxiosInstance } from "../../../utilities/axios"
+import { toast } from "sonner";
+import { adminAxiosInstance, axiosInstance } from "../../../utilities/axios"
 
 export const postDetails = async (postId) => {
     try {
@@ -13,3 +14,4 @@ export const postDetails = async (postId) => {
         
     }
 }   
+

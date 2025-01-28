@@ -12,6 +12,7 @@ function AdminReport() {
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [filter, setFilter] = useState('All');
     const limit = 2;
 
 
@@ -20,7 +21,7 @@ function AdminReport() {
             setIsLoading(true);
 
             const response = await adminAxiosInstance.get('/report-list', {
-                params: { page: currentPage, limit, search },
+                params: { page: currentPage, limit, search, filter},
             })
             console.log(response)
 
@@ -37,10 +38,13 @@ function AdminReport() {
         }
     }
 
+    
+
     return (
         <div>
             <AdminSideBar />
             <AdminContent name={'Report List'} search={search} setSearch={setSearch}>
+        
                 <AdminTableComponent
                     search={search}
                     fetchData={fetchReportList}
@@ -50,6 +54,8 @@ function AdminReport() {
                     setCurrentPage={setCurrentPage}
                     totalPages={totalPages}
                     TABLE_HEADERS={TABLE_HEADERS.REPORT_HEADER}
+                    setFilter = {setFilter}
+                    filter={filter}
                 />
             </AdminContent>
         </div>

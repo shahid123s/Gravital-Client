@@ -52,4 +52,16 @@ const ACTION_OPTIONS = {
 }
 
 
+
+export const TOGGLE_ACTION_STATE = {
+    Ban: 'Unban',
+    Unban: 'Ban',
+    Block: 'Unblock',
+    Unblock: 'Block',
+    Premium: 'Status',
+    Status: 'Premium',
+    Restrict: 'Unrestrict',
+    Unrestrict: 'Restrict',
+}
+
 export default ACTION_OPTIONS;

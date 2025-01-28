@@ -10,6 +10,7 @@ import MutedAccountLogo from '../../../assets/muted.svg';
 import AccountStatsLogo from '../../../assets/skills.svg';
 import FamilyCenterLogo from '../../../assets/family.svg';
 import BlokedUserLogo from '../../../assets/block-user.svg';
+import ArchiveLogo from  '../../../assets/archive.svg'
 
 function SettingsList() {
     const [search, setSearch] = useState('');
@@ -32,6 +33,7 @@ function SettingsList() {
                 <SettingsLink name={'Edit Profile'} logo={UserLogo} />
                 <SettingsLink name={'Account Privacy'} logo={AccountPrivacyLogo} />
                 <SettingsLink name={'Premium'} logo={PremiumLogo} />
+                <SettingsLink name={'Archive'} logo={ArchiveLogo} />
                 <SettingsLink name={'Activity'} logo={UserLogo} />
                 <SettingsLink name={'Content Preference'} logo={ContentPreferenceLogo} />
                 <SettingsLink name={'Likes and Comment'} logo={LikeAndCommentLogo} />

@@ -3,12 +3,13 @@ import React from 'react'
 function ActionButton({ buttonColor, title, handleAction, isDisabled, actionId}) {
 
     const color = buttonColor === 'orange'
-        ? 'bg-orange-400'
-        : buttonColor === 'red'
-            ? 'bg-red-500'
-            : buttonColor === 'green'
-                ? 'bg-lime-600' : 'bg-[#4A90E2]';
-
+    ? 'bg-orange-400'
+    : buttonColor === 'red'
+    ? 'bg-red-500'
+    : buttonColor === 'green'
+    ? 'bg-lime-600' : 'bg-[#4A90E2]';
+    
+    console.log(color)
 
     return (
         <button

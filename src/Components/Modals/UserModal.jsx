@@ -1,18 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import ActionButton from '../Buttons/ActionButton';
+import { TOGGLE_ACTION_STATE } from '../../enum/actionOptions';
 
 
-function UserModal({ isOpen, onClose, userData }) {
+function UserModal({ isOpen, onClose, userData,   handleAction }) {
+  const [actions, setActions] = useState([]);
 
-
-
-  console.log('myr open avunna')
+  useEffect(() => {
+    if (userData?.actions) {
+      setActions(userData.actions);
+    }
+  }, [userData]);
 
   const convertDate = (unformatedDate) => {
     const date = new Date(unformatedDate);
     const formatedDate = date.toLocaleDateString('en-CA');
     return formatedDate
   }
+
+  const handleActionClick = async (actionTitle) => {
+    try {
+      // Call the parent handleAction function
+      await handleAction(actionTitle, userData._id);
+
+      // Update the local state to toggle the action
+      setActions((prevActions) =>
+        prevActions.map((action) =>
+          action.title === actionTitle
+            ? { ...action, title: TOGGLE_ACTION_STATE[actionTitle] || action.title }
+            : action
+        )
+      );
+    } catch (error) {
+      console.error('Error handling action:', error);
+    }
+  };
+
 
   if (!isOpen || !userData) return null;
 
@@ -39,13 +62,18 @@ function UserModal({ isOpen, onClose, userData }) {
             <h1 className='text-[#99775C]'>Is Banned : <span className='text-[#333333]'>{userData?.isBan ? "True" : 'False'}</span> </h1>
           </div>
         </div>
-        {userData.actions.map((action) => (
-                    <ActionButton
-                        key={action.title}
-                        title={action.title}
-                        buttonColor={action.color}
-                    />
-                ) )}
+        <div className='flex justify-center gap-3 mt-4'>
+
+          {actions.map((action) => (
+            <ActionButton
+              key={action.title}
+              title={action.title}
+              buttonColor={action.color}
+              handleAction={handleActionClick}
+              actionId={userData._id}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )

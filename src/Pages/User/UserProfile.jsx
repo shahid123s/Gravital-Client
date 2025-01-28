@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../../Components/User/Sidebar'
 import UserDetailsDisplay from '../../Components/User/UserProfileDisplayContent'
 import UserPosts from '../../Components/User/UserPosts'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, replace, useNavigate, useParams } from 'react-router-dom'
 import { UserAuth } from '../../Components/Private/UserAuth'
 import { axiosInstance } from '../../utilities/axios'
 import Footer from '../../Components/Footer'
 import Spinner from '../../Components/Spinner'
-import useFetchUserData from '../../hooks/fetchUserDetail'
+import useFetchUserData from '../../hooks/fetchUserDetail';
+import Cookies from  'js-cookie';
 
 
 function UserProfile() {
@@ -18,6 +19,10 @@ function UserProfile() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if(username === Cookies.get('username')){
+      navigate('/profile', replace)
+    } 
+    console.log(username)
     const  fetchPost =async () => {
       setLoading(true)
       setPostDetails([])
@@ -26,9 +31,9 @@ function UserProfile() {
           username: username || ''
         }
       });
+      setLoading(false)
        console.log(response.data, 'ithaa vanna')
        setPostDetails(response.data.posts)
-       setLoading(false)
     }
 
     fetchPost() 

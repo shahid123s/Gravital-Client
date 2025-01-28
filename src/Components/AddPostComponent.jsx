@@ -173,7 +173,7 @@ function AddPostComponent({profileImage}) {
         <button className='w-5 flex items-center gap-2 text-[#4A90E2] font-poppins' onClick={handleClick}><img src={MediaButton} alt="" /> Media</button>
         <button className='w-5 flex items-center gap-2 text-[#4A90E2] font-poppins'><img src={PollButton} alt="" /> Poll</button>
         <button className='w-5 flex items-center gap-2 text-[#4A90E2] font-poppins'><img src={SheduleButton} alt="" /> Shedule</button>
-        {croppedImage.post && !isCrop &&<button className='w-7 flex items-center gap-2 text-[#4A90E2] font-poppins' onClick={handleSubmit}>Post<img src={SubmitLogo} alt="" /></button>}
+        {croppedImage.post && !isCrop &&<button className='w-7 flex items-center gap-2 text-[#4A90E2] font-poppins disabled:cursor-not-allowed ' onClick={handleSubmit} disabled={loading}>Post<img src={SubmitLogo} alt="" /></button>}
 
       </div>
 

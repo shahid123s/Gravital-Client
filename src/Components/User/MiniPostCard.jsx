@@ -1,14 +1,17 @@
 import React from 'react'
 import { toast } from 'sonner'
-function MiniPostCard({postUrl}) {
+function MiniPostCard({post, setIsModalOpen, setPostData}) {
 
   const handleClick = () => {
-     toast.success('sucsse')
+      setIsModalOpen(true)
+      setPostData(post
+        
+      )
   }
 
   return (
     <div className='w-72 rounded-lg overflow-hidden' onClick={handleClick}>
-      <img src={postUrl} alt="" className='w-full'/>
+      <img src={post.postUrl|| post.fileName} alt="" className='w-full'/>
     </div>
   )
 }

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import ReportModal from '../Modals/ReportModal';
 import AdminPostDetailsModal from '../Modals/AdminPostDetailsModal';
 import { postDetails } from '../../services/admin/post/getPostDetails';
+import Sorting from '../Sorting';
 function AdminTableComponent({
   search,
   fetchData,
@@ -18,7 +19,9 @@ function AdminTableComponent({
   totalPages,
   currentPage,
   setCurrentPage,
-  TABLE_HEADERS
+  TABLE_HEADERS,
+  setFilter,
+  filter
 }) {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +32,7 @@ function AdminTableComponent({
 
   useEffect(() => {
     fetchData()
-  }, [search, currentPage]);
+  }, [search, currentPage, filter]);
 
 
   const handlePageChange = (page) => {
@@ -64,7 +67,7 @@ function AdminTableComponent({
     try {
       if (title === 'user') {
         const response = await adminAxiosInstance.get('/user-data/', { params: { userId: dataId } });
-        setDataDetails(response.data.user);
+        await setDataDetails(response.data.user);
         setIsOpen(true);
       } else if (title === 'post') {
         
@@ -106,6 +109,8 @@ function AdminTableComponent({
           isOpen={isOpen}
           onClose={handleClose}
           userData={dataDetails}
+          setUserData={setDataDetails}
+          handleAction={handleAction}
         />
 
         <AdminPostDetailsModal
@@ -122,7 +127,11 @@ function AdminTableComponent({
           setDatas={setDataDetails}
         />
       </div>
-      <div className="flex justify-end mt-2 text-gray-400 bg-inherit">
+      <div className={`flex ${setFilter ? 'justify-between' : 'justify-end'} mt-2 text-gray-400 bg-inherit`}>
+        {setFilter && <Sorting
+          filter={filter}
+          setFilter={setFilter}
+        />}
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}

@@ -28,13 +28,6 @@ function LoginComponent({ isAdmin }) {
         }
     }, []);
 
-    // useEffect(() => {
-    //     if (isAuthenticate && !isAdmin) {
-    //         navigate('/home');
-
-    //     }
-    // }, [navigate, isAuthenticate, error])
-
     const handleChange = (event) => {
         const { value, name } = event.target;
         setFormData({ ...formData, [name]: value })

@@ -15,6 +15,7 @@ import UserProfile from './Pages/User/UserProfile'
 import Settings from './Pages/User/Settings'
 import Favourites from './Pages/User/Favourites'
 import AdminReport from './Pages/Admin/AdminReport'
+import Archive from './Pages/User/Archive'
 
 
 const Register = lazy(() => import('./Pages/User/Register'));
@@ -45,6 +46,7 @@ function App() {
                 <Route index element={<Navigate to="edit-profile" replace />} />
                 <Route path='edit-profile' element={<Settings />} />
                 <Route path='account-privacy' element={<Settings />} />
+                <Route path='archive' element={<Archive />} />
               </Route>
               <Route path ='favourites' element = { <Favourites/> } />
             </Route>

@@ -14,7 +14,7 @@ import { getUserProfileUrl } from '../../utilities/copyUrl';
 
 
 function UserDetailsDisplay({ userDetails, loading, username }) {
-    const { toggleFollow, isFollowed } = useFollow(userDetails.isFollowed)
+    const { toggleFollow, isFollowed } = useFollow(userDetails?.isFollowed)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [actionModal, setActionModal] = useState(null);
     const [actionContext, setActionContext] = useState(null);
@@ -27,9 +27,6 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
                     userId: userDetails._id,
                 },
             });
-
-            console.log(response)
-
             const {isRestricted, isBlocked} = response.data;
 
             // Update the options dynamically
