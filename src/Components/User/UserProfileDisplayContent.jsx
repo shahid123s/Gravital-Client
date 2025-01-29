@@ -135,7 +135,7 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
                         <h1 className='text-3xl '>{userDetails.fullName}</h1>
                         <button className='bg-[#4A90E2] rounded-lg p-2 ' onClick={handleEdith}>{!username ? 'Edit Profile' : isFollowed ? 'Unfollow' : 'Follow'}</button>
                         <button className='bg-[#4A90E2] rounded-lg p-2'>{!username ? 'View Activity' : 'Message'}</button>
-                        <button onClick={handleReport}><img src={MoreButton} alt="" /></button>
+                        {username && <button onClick={handleReport}><img src={MoreButton} alt="" /></button>}
 
 
                     </div>

@@ -33,6 +33,21 @@ export const toggleBlock = async(userId) => {
 //  }
 
 
+export const archivePost = async (postId) => {
+    const response = await axiosInstance.post('/post/archive', { postId });
+    return response.data;
+}
+
+export const publishPost = async (postId) => {
+    const response = await axiosInstance.post('/post/publish', { postId });
+    return response.data
+}
+
+export const deletePost = async (postId) => {
+    const response = await axiosInstance.post('/post/delete', { postId });
+    return response.data;
+}
+ 
 export const reportPost = async (postId, userId, message) => {
     const response = await axiosInstance.post('/report-post',{
         postId,

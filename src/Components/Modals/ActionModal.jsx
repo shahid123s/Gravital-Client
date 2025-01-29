@@ -5,11 +5,11 @@ function ActionModal({ title, actionContext, setClose, handleAction }) {
 
  
 
-    console.log(actionContext.profileImage)
+    // console.log(actionContext.profileImage)
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-[#333333] w-96 py-2 px-2 text-white justify-end rounded-lg shadow-lg text-center  flex flex-col gap-2">
+            <div className="bg-[#333333] w-[30%] py-2 px-2 text-white justify-end rounded-lg shadow-lg text-center  flex flex-col gap-2">
                 {/* <p className='text-red-500'>{title}</p> */}
                 {actionContext.title ? <p className='text-md text-red-500'>{actionContext.title}</p> :
                     <div className='bg-inherit flex items-center p-2 gap-5'>

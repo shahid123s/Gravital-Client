@@ -20,9 +20,9 @@ function UserProfile() {
 
   useEffect(() => {
     if(username === Cookies.get('username')){
-      navigate('/profile', replace)
+      return navigate('/profile', replace)
     } 
-    console.log(username)
+    console.log(username, 'username')
     const  fetchPost =async () => {
       setLoading(true)
       setPostDetails([])
@@ -47,7 +47,7 @@ function UserProfile() {
       {!loading && <div className=' min-h-screen flex  '>
         <div className=' min-h-full ml-56 bg-[#757575] w-full flex flex-col'>
           <UserDetailsDisplay userDetails= {userDetails} loading={loading} username={username}  />
-          <UserPosts postDetails ={postDetails} />
+          <UserPosts postDetails ={postDetails} userDetails = {userDetails} isCurrentUser= {username ? false: true} />
 
 
           <Footer/>

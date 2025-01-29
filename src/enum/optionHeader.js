@@ -62,6 +62,16 @@ const OPTION_HEADER =  {
             title: 'Copy link',
             color: 'default',
         },
+    ],
+    ARCHIVE_POST: [
+        {
+            title: 'Delete Post',
+            color: 'red',
+        },
+        {
+            title: 'Publish',
+            color: 'blue',
+        },
     ]
 }
 

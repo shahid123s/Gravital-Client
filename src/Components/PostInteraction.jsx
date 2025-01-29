@@ -7,8 +7,9 @@ import SaveButton from '../assets/savePostLogo.svg';
 import SavedButton from '../assets/saved-logo.svg';
 import ReachBtn from '../assets/graph.svg';
 import useLike from '../hooks/toggleLike';
+import { axiosInstance } from '../utilities/axios';
 
-export function PostInteraction({likedCount, initialLikedByUser, postId, isSavedByUser, style}) {
+export function PostInteraction({likedCount, initialLikedByUser, postId, isSavedByUser, style, ...props}) {
     const { likes, likedByUser, toggleLike } = useLike(likedCount, initialLikedByUser, postId)
     const [isSaved, setIsSaved] = useState(isSavedByUser)
 
@@ -21,11 +22,11 @@ export function PostInteraction({likedCount, initialLikedByUser, postId, isSaved
 
     return (
         <div className={`w-11/12 flex  justify-around bg- rounded-md bg-inherit ${style} `}> {/* ith oru component akkanam marakkallee...... */}
-            <button className='  flex gap-4 items-center ' onClick={toggleLike} ><img className='w-5' src={likedByUser ? LikedButton : LikeButton} alt="" />{likes || 0}</button>
-            <button className='  flex gap-4 items-center '><img className='w-6' src={CommentButton} alt="" />1.2K</button>
-            <button className='  flex gap-4 items-center '><img className='w-5' src={ReachBtn} alt="" />1.2K</button>
-            <button className='  flex gap-4 items-center '><img className='w-5' src={ShareButton} alt="" />1.2K</button>
-            <button className='  flex gap-4 items-center '><img className='w-5' onClick={() => toggleSavePost(postId)} src={isSaved ? SavedButton : SaveButton} alt="" /></button>
+            <button className='  flex gap-4 items-center disabled:cursor-not-allowed ' onClick={toggleLike} {...props} ><img className='w-5' src={likedByUser ? LikedButton : LikeButton} alt="" />{likes || 0}</button>
+            <button className='  flex gap-4 items-center disabled:cursor-not-allowed '{...props} ><img className='w-6' src={CommentButton} alt="" />1.2K</button>
+            <button className='  flex gap-4 items-center disabled:cursor-not-allowed'{...props}><img className='w-5' src={ReachBtn} alt="" />1.2K</button>
+            <button className='  flex gap-4 items-center disabled:cursor-not-allowed' {...props}><img className='w-5' src={ShareButton} alt="" />1.2K</button>
+            <button className='  flex gap-4 items-center disabled:cursor-not-allowed' {...props}><img className='w-5' onClick={() => toggleSavePost(postId)} src={isSaved ? SavedButton : SaveButton} alt="" /></button>
 
         </div>
     )

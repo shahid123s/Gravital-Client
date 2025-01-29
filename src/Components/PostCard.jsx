@@ -10,7 +10,7 @@ import OptionModal from './User/Report/OptionModal';
 import OPTION_HEADER from '../enum/optionHeader';
 import ActionModal from './Modals/ActionModal';
 import ACTION_OPTIONS from '../enum/actionOptions';
-import { reportPost } from '../services/user/modarationServices';
+import { archivePost, deletePost, reportPost } from '../services/user/modarationServices';
 import { toast } from 'sonner';
 import Cookies from 'js-cookie'
 import { PostInteraction } from './PostInteraction';
@@ -22,7 +22,7 @@ function PostCard({ postDetails }) {
     const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
     const [actionModal, setActionModal] = useState(null);
     const [actionContext, setActionContext] = useState(null);
-    const isUsers = Cookies.get('username') === postDetails.userID.username ? true: false;
+    const isUsers = Cookies.get('username') === postDetails.userID.username ? true : false;
 
     // console.log(postDetails, isSaved)
 
@@ -53,18 +53,8 @@ function PostCard({ postDetails }) {
             console.log(actionContext)
             return
 
-        } 
-        if(title === 'Archive Post'){
-            try {
-                 const response  = await axiosInstance.post('/post/archive',{postId: postDetails._id});
-                 console.log(response)
-                 return toast.success(response.data.message)
-            } catch (error) {
-                
-            }
         }
-
-
+       
         setActionContext(ACTION_OPTIONS.POST[title]);
         setActionModal(title);
     }
@@ -75,9 +65,14 @@ function PostCard({ postDetails }) {
     }
 
     const handleAction = async (title, message) => {
-        if(title === 'Report'){
+        if (title === 'Report') {
             await reportPost(postDetails._id, postDetails.userID._id, message);
+        }  else if( title === 'Archive Post'){
+            await archivePost(postDetails._id);
+        } else if( title === 'Delete Post'){
+            await deletePost(postDetails._id);
         }
+
         toast.success(title)
         setActionModal(null);
         setActionContext(null);
@@ -95,7 +90,7 @@ function PostCard({ postDetails }) {
                 </div>
                 <button onClick={handleOption}><img src={MoreButton} alt="" /></button>
                 {isOptionModalOpen && <OptionModal
-                    OPTION_HEADER={isUsers? OPTION_HEADER.USERPOST : OPTION_HEADER.POST}
+                    OPTION_HEADER={isUsers ? OPTION_HEADER.USERPOST : OPTION_HEADER.POST}
                     setClose={handleOption}
                     handleOptionActions={handleActionModal}
                 />}
@@ -114,25 +109,18 @@ function PostCard({ postDetails }) {
 
             <div className='w-11/12 overflow-hidden rounded-2xl aspect-square flex justify-center'>
 
-                {isImageLoad ? <img   onLoad={loadImage} src={postDetails.postUrl} alt="" /> : <Spinner fill={true} />}
+                {isImageLoad ? <img onLoad={loadImage} src={postDetails.postUrl} alt="" /> : <Spinner fill={true} />}
                 <img src={postDetails.postUrl} onLoad={loadImage} className='hidden' />
 
             </div>
 
-                <PostInteraction
-                    isSavedByUser={postDetails.isSavedByUser}
-                    postId={postDetails._id}
-                    initialLikedByUser={postDetails.likedByUser}
-                    likedCount={postDetails.likedCount}
-                />
-           {/* <div className='w-11/12 flex  justify-around '> ith oru component akkanam marakkallee...... */}
-                {/* <button className='  flex gap-4 items-center ' onClick={toggleLike} ><img className='w-5' src={likedByUser ? LikedButton : LikeButton} alt="" />{likes}</button> */}
-                {/* <button className='  flex gap-4 items-center '><img className='w-6' src={CommentButton} alt="" />1.2K</button> */}
-                {/* <button className='  flex gap-4 items-center '><img className='w-5' src={ReachBtn} alt="" />1.2K</button> */}
-                {/* <button className='  flex gap-4 items-center '><img className='w-5' src={ShareButton} alt="" />1.2K</button> */}
-                {/* <button className='  flex gap-4 items-center '><img className='w-5' onClick={() => toggleSavePost(postDetails._id)} src={isSaved ? SavedButton : SaveButton} alt="" /></button> */}
-
-            {/* </div> */}
+            <PostInteraction
+                isSavedByUser={postDetails.isSavedByUser}
+                postId={postDetails._id}
+                initialLikedByUser={postDetails.likedByUser}
+                likedCount={postDetails.likedCount}
+            />
+            
         </div>
     )
 }
