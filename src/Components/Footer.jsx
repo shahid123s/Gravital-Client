@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
-    <div className='bg-inherit w-full flex flex-wrap p-5 gap-x-5 text-[#4A90E2] justify-center text-[12px]'>
+    <div className='bg-inherit w-full flex flex-wrap p-5 gap-x-5 text-[#828282] justify-center text-[12px]'>
     <Link>About</Link>
     <Link>Hlep</Link>
     <Link>Terms & Policies</Link>

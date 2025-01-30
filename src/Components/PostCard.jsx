@@ -79,7 +79,7 @@ function PostCard({ postDetails }) {
     }
 
     return (
-        <div className='flex flex-col justify-center items-center font-poppins w-[99%] px-4 py-7 rounded-2xl gap-5'>
+        <div className='flex flex-col justify-center items-center font-poppins w-[99%] px-4 py-7 bg-[] shadow-lg text-[#E6EDF3] rounded-2xl gap-5'>
             <div className='flex justify-between text-[#99775C]  h-11 w-11/12'>
                 <div className='flex items-center gap-5'>
                     <div className='w-10 h-10 flex items-center overflow-hidden rounded-full'>

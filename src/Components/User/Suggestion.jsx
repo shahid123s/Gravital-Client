@@ -19,20 +19,20 @@ function Suggestion({userDetails}) {
    },[])
 
   return (
-    <div className='h-fit flex flex-col bg-[#333333] w-[22%] p-1  gap-3 items-center'>
-      <div className='bg-inherit p-4 flex justify-center gap-5 items-center '>
+    <div className='h-fit flex flex-col bg-[#121212] w-[22%] p-1  gap-3 items-center'>
+      <div className='bg-inherit py-2 flex justify-start gap-5 items-center '>
         <img src={userDetails.profileImage} alt="" className='w-[20%] rounded-full ' />
         <div className='flex flex-col bg-inherit font-poppins text-white'>
           <p> {userDetails.fullName} </p>
           <p className='text-sm text-[#99775C] '>{userDetails.username}</p>
         </div>
-        <button className='text-[#4A90E2]'>Switch</button>
+        {/* <button className='text-[#4A90E2]'>Switch</button> */}
       </div>
-      <div className='bg-inherit w-full flex justify-around '>
-        <h4 className='text-white'>Suggestion For You</h4>
-        <button className='text-[#4A90E2]'>More</button>
+      <div className='bg-inherit w-full flex justify-between px-3 '>
+        <h4 className='text-[#828282]'>Suggestion For You</h4>
+        <button className='text-[#99775C]'>More</button>
       </div>
-      <div className=' bg-inherit flex flex-col w-full gap-1 border-b border-white'>        
+      <div className=' bg-inherit flex flex-col w-full gap-1 '>        
       
         {!loading &&suggestionList.map((users) => <SuggestedUserCard key={users._id} userDetails={users} /> )
           }

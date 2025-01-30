@@ -44,7 +44,7 @@ function Sidebar() {
 
   return (
 
-    <div   className='fixed flex flex-col left-0 bg-[#333333] w-56 h-screen items-center pt-10  border-r border-white'>
+    <div   className='fixed flex flex-col left-0 bg-[#121212] w-56 h-screen items-center pt-10 border-r-[#2A2A2A] shadow-md border-white'>
          <img src={Logo} alt=""  className='bg-transparent w-11/12 mb-7 hover:p-'  />
          <div className='bg-inherit flex-col flex gap-9 items-start'>
             <SidebarLinks logo={HomeLogo} name={'Home'} />

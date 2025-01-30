@@ -12,7 +12,7 @@ function AdminReport() {
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [filter, setFilter] = useState('All');
+    const [filter, setFilter] = useState('Filter');
     const limit = 2;
 
 
