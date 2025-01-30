@@ -85,7 +85,7 @@ function PostCard({ postDetails }) {
                     <div className='w-10 h-10 flex items-center overflow-hidden rounded-full'>
                         <img src={postDetails.userID?.profileImage} alt="" />
                     </div>
-                    <Link className='font-poppins text-lg' to={`/${postDetails.userID.username}`}>{postDetails.userID.fullName} <span className='text-sm'> {postDetails.userID.username} </span></Link>
+                    <Link className='font-poppins text-lg' to={`/${postDetails.userID.username}`}>{postDetails.userID.fullName} <span className='text-sm text-[#828282]'> {postDetails.userID.username} </span></Link>
 
                 </div>
                 <button onClick={handleOption}><img src={MoreButton} alt="" /></button>

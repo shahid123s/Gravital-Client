@@ -124,9 +124,9 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
     }
 
     return (
-        <div className='  flex flex-col  items-center w-full  bg-[#757575]  '>
+        <div className='  flex flex-col  items-center w-full  bg-[#121212]  shadow-2xl shadow-gray-500 '>
 
-            {userDetails.fullName && !loading && <div className=' w-full flex gap-9 justify-center items-center border-b border-[#f0f0f0f]   p-6 px-20 bg-inherit'>
+            {userDetails.fullName && !loading && <div className=' w-full flex gap-9 justify-center items-center    p-6 px-20 bg-inherit'>
                 <div className='w-52 overflow-hidden rounded-full h-52 flex justify-center items-center bg-zinc-600'>
                     {!loading && <img src={userDetails.profileImage || UserLogo} alt="" className='' />}
                 </div>

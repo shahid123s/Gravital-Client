@@ -45,7 +45,7 @@ function UserProfile() {
         <Sidebar />
       {loading && <Spinner/>}
       {!loading && <div className=' min-h-screen flex  '>
-        <div className=' min-h-full ml-56 bg-[#757575] w-full flex flex-col'>
+        <div className=' min-h-full ml-56 bg-[#121212] w-full flex flex-col'>
           <UserDetailsDisplay userDetails= {userDetails} loading={loading} username={username}  />
           <UserPosts postDetails ={postDetails} userDetails = {userDetails} isCurrentUser= {username ? false: true} />
 

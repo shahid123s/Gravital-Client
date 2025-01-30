@@ -124,7 +124,7 @@ function AddPostComponent({ profileImage }) {
       <div className='w-14 flex items-center overflow-hidden rounded-full'>
         <img src={profileImage} alt="" />
       </div>
-      <div className='flex-1 flex flex-col gap-8'>
+      <div className='flex-1 flex flex-col gap-8 bg-inherit'>
         <textarea
           ref={textAreaRef}
           value={caption}
