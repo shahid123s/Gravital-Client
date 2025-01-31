@@ -145,7 +145,7 @@ function AddPostComponent({ profileImage }) {
         <div className="relative w-full h-[70vh]">
           <img src={croppedImage.post} alt="" className="h-full w-full rounded-xl" />
           {loading && (
-            <div className="absolute inset-0 flex justify-center items-center">
+            <div className="absolute inset-0 flex justify-center items-center w-full">
               <Spinner position={'absolute'} />
             </div>
           )}
@@ -156,19 +156,21 @@ function AddPostComponent({ profileImage }) {
       </div>
     )}
   
-    <div className='flex w-full justify-evenly items-start bg-transparent'>
+    <div className={`flex w-full justify-evenly items-start bg-transparent`}>
+      <div className=' flex w-[100%] justify-evenly items-start '>
       <input type="file" ref={mediaRef} className='hidden' onChange={handleFileChange} />
-      <button className='w-5 flex items-center gap-2 text-[#4A90E2] font-poppins' onClick={handleClick}><img src={MediaButton} alt="" /> Media</button>
-      <button className='w-5 flex items-center gap-2 text-[#4A90E2] font-poppins'><img src={PollButton} alt="" /> Poll</button>
-      <button className='w-5 flex items-center gap-2 text-[#4A90E2] font-poppins'><img src={SheduleButton} alt="" /> Schedule</button>
-      
-    </div>
+      <button className='w-5 flex items-center gap-2 text-[#E6EDF3] font-poppins' onClick={handleClick}><img src={MediaButton} alt="" /> Media</button>
+      <button className='w-5 flex items-center gap-2 text-[#E6EDF3] font-poppins'><img src={PollButton} alt="" /> Poll</button>
+      <button className='w-5 flex items-center gap-2 text-[#E6EDF3] font-poppins'><img src={SheduleButton} alt="" /> Schedule</button>
+      </div>
     {croppedImage.post && !isCrop && (
-        <button className='w-5 flex items-center gap-2  text-[#4A90E2] font-poppins disabled:cursor-not-allowed' onClick={handleSubmit} disabled={loading}>
+        <button className='w-7  flex items-center gap-2  text-[#E6EDF3] font-poppins disabled:cursor-not-allowed' onClick={handleSubmit} disabled={loading}>
           <img className= ''  src={SubmitLogo} alt="" />
         </button>
       )}
   
+      
+    </div>
     {isCrop && <ImageCropModal imageSrc={image} ASPECT_RATIO={AspectRatio.SQUARE} setData={setCroppedImage} setImageCrop={setIsCrop} />}
   </div>
   )
