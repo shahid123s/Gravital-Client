@@ -53,10 +53,10 @@ function Otpverfication() {
         try {
             let response ;
           if(!location.state?.isResetPassword){
-            response = await axiosInstance.post('/otp-verification',data);
+            response = await axiosInstance.post('/auth/otp-verification',data);
           }
           else{
-            response = await axiosInstance.post('/otp-verification', data)
+            response = await axiosInstance.post('/auth/otp-verification', data)
           }
             console.log(response.data)
             toast.success(response?.data?.message,{

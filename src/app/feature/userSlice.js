@@ -6,7 +6,7 @@ export const login = createAsyncThunk(
     'user/login',
     async (credentials, {rejectWithValue}) => {
         try {
-            const response = await axiosInstance.post('/login', credentials);
+            const response = await axiosInstance.post('/auth/user/login', credentials);
             const {accessToken, username} = response.data;
             Cookies.set('username', username, {expires: 7});
             return accessToken;
@@ -33,7 +33,7 @@ export const logout = createAsyncThunk(
     'user/logout',
     async (_, {rejectWithValue}) => {
        try {
-        const response = await axiosInstance.post('/logout');
+        const response = await axiosInstance.post('/auth/user/logout');
         Cookies.remove('username');
         return response.data
        } catch (error) {

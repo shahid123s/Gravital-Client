@@ -13,7 +13,7 @@ function ForgetEmailComponent() {
 
     const handleSubmit =async (event) => {
         event.preventDefault()
-       const response = await axiosInstance.post('/reset-password/email', {email});
+       const response = await axiosInstance.post('/auth/user/sent-otp/forget-password', {email});
        const expireTime = Date.now() + 2 * 60 * 1000 ;
         navigate('/otp-verification' ,{state :{expireTime, email, isResetPassword: true, from: 'reset-password'}})
        console.log(response)
