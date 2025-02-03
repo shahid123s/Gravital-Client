@@ -10,7 +10,7 @@ function Suggestion({userDetails}) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchSuggestion = async () => {
-     const response = await axiosInstance.get('/suggeted-users');
+     const response = await axiosInstance.get('/user/suggest-users');
     setSuggestionList(response.data.usersList);
     setLoading(false)
      console.log(response, 'vannilleeeee')

@@ -15,7 +15,7 @@ const useFollow = (initialFollowState = false) => {
   const toggleFollow = async (userId) => {
     try {
       setLoading(true);
-      const response = await axiosInstance.post('/toggle-follow', { userId });
+      const response = await axiosInstance.post('/follow/toggle-follow', { userId });
       if (response.status === 200) {
         setIsFollowed((prevState) => !prevState);
         toast.success(isFollowed? 'Unfollowed': 'Followed')

@@ -23,7 +23,7 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
     const handleOption = async (title) => {
         console.log(postDetails)
         if (title === 'About this Account') {
-            const response = await axiosInstance.get('/about-profile', {
+            const response = await axiosInstance.get('/user/about-profile', {
                 params: { username: postDetails.userID.username }
             })
             setActionContext(response.data.user)

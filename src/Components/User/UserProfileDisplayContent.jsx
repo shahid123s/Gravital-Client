@@ -86,7 +86,7 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
         // console.log(title, 'ivda')
         if (title === 'About this Account') {
             try {
-                const response = await axiosInstance.get('/about-profile', {
+                const response = await axiosInstance.get('/user/about-profile', {
                     params: { username: userDetails.username }
                 })
                 console.log(typeof response.data.user, 'this reponse')

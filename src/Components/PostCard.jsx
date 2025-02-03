@@ -41,7 +41,7 @@ function PostCard({ postDetails }) {
         if (title === 'About this Account') {
             try {
                 console.log(postDetails)
-                const response = await axiosInstance.get('/about-profile', {
+                const response = await axiosInstance.get('/user/about-profile', {
                     params: { username: postDetails.userID.username }
                 })
                 console.log(typeof response.data.user, 'this reponse')

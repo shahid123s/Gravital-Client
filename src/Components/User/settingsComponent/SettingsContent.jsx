@@ -102,7 +102,7 @@ function SettingsContent() {
 
 
         try {
-            const resposne = await axiosInstance.post('/update-profile', formData, {
+            const resposne = await axiosInstance.patch('/user/update-profile', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
