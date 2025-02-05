@@ -52,7 +52,7 @@ function AdminPostDetailsModal({ isOpen, onClose, postData, handleAction }) {
                 <div className="flex justify-center gap-7 items-center">
                     <img src={postData.fileName} alt="" className='w-36 rounded-md h-fit' />
                     <div className='bg-inherit flex-col items-start'>
-                        <h1 className='text-[#99775C]'>Username : <span className='text-[#333333]'>{postData?.userID.username}</span></h1>
+                        <h1 className='text-[#99775C]'>Username : <span className='text-[#333333]'>{postData?.userId.username}</span></h1>
 
                         <h1 className='text-[#99775C]'>Caption : <span className='text-[#333333]'>{postData?.caption}</span></h1>
                         <h1 className='text-[#99775C]'>Created At : <span className='text-[#333333]'>{convertDate(postData?.uploadDate)}</span> </h1>

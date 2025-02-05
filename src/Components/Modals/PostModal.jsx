@@ -24,7 +24,7 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
         console.log(postDetails)
         if (title === 'About this Account') {
             const response = await axiosInstance.get('/user/about-profile', {
-                params: { username: postDetails.userID.username }
+                params: { username: postDetails.userId.username }
             })
             setActionContext(response.data.user)
             setIsActionModalOpen(title);
@@ -49,7 +49,7 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
             await archivePost(postDetails._id)
         }
         if (title === 'Report') {
-             await reportPost(postDetails._id, postDetails.userID._id, value);
+             await reportPost(postDetails._id, postDetails.userId._id, value);
         } 
         toast.success(title)
         setIsActionModalOpen(null);
@@ -97,9 +97,9 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
                     <div className='flex items-center gap-5 bg-inherit justify-between'>
                         <div className='flex items-center gap-5 bg-inherit'>
                             <div className='w-10 h-10 flex items-center overflow-hidden rounded-full  '>
-                                <img src={postDetails.userID?.profileImage} alt="" />
+                                <img src={postDetails.userId?.profileImage} alt="" />
                             </div>
-                            <Link className='font-poppins text-lg ' to={`/${postDetails.userID.username}`}>{postDetails.userID.fullName} <span className='text-sm text-[#99775C]'> {postDetails.userID.username} </span></Link>
+                            <Link className='font-poppins text-lg ' to={`/${postDetails.userId.username}`}>{postDetails.userId.fullName} <span className='text-sm text-[#99775C]'> {postDetails.userId.username} </span></Link>
                         </div>
                         <button className='' onClick={handleOptionModal}><img src={MoreButton || ''} alt="" /></button>
 

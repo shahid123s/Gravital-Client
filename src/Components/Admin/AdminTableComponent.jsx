@@ -66,7 +66,7 @@ function AdminTableComponent({
   const hanldeModalClick = async (dataId, title) => {
     try {
       if (title === 'user') {
-        const response = await adminAxiosInstance.get('/user-data/', { params: { userId: dataId } });
+        const response = await adminAxiosInstance.get('/user', { params: { userId: dataId } });
         await setDataDetails(response.data.user);
         setIsOpen(true);
       } else if (title === 'post') {

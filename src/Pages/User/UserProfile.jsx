@@ -26,7 +26,7 @@ function UserProfile() {
     const  fetchPost =async () => {
       setLoading(true)
       setPostDetails([])
-      const response = await axiosInstance.get(`/post/get-users-post`, {
+      const response = await axiosInstance.get(`/post/user`, {
         params: {
           username: username || ''
         }

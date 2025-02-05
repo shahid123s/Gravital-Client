@@ -95,7 +95,7 @@ function AddPostComponent({ profileImage }) {
       formData.append('caption', caption);
 
       console.log(formData)
-      const resposne = await axiosInstance.post('/post/add-post', formData, {
+      const resposne = await axiosInstance.post('/post/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

@@ -2,14 +2,14 @@ import { toast } from "sonner";
 import { axiosInstance } from "../../utilities/axios"
 
 export const toggleRestriction = async(userId) => {
-    const response = await axiosInstance.post('/toggle-restriction', {
+    const response = await axiosInstance.post('/restriction/user', {
         restrictedUser: userId
     });
     return response
 }
 
 export const reportUser = async (userId, message) => {
-    const response = await axiosInstance.post('/report-user', {
+    const response = await axiosInstance.post('/report/user', {
         userId, 
         message,
     })
@@ -49,7 +49,7 @@ export const deletePost = async (postId) => {
 }
  
 export const reportPost = async (postId, userId, message) => {
-    const response = await axiosInstance.post('/report-post',{
+    const response = await axiosInstance.post('/report/post',{
         postId,
         userId,
         message,

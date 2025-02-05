@@ -2,24 +2,24 @@ import { toast } from "sonner";
 import { adminAxiosInstance } from "../../../utilities/axios"
 
 export const banUser = async (userId) => {
-  const response = await adminAxiosInstance.patch('/ban-user', { userId });
+  const response = await adminAxiosInstance.patch('/user/toggle-ban', { userId });
   toast.success(response.data.message);
   return response.data;
 }
 
 export const unBanUser = async (userId) => {
-  const response = await adminAxiosInstance.patch('/unban-user', { userId })
+  const response = await adminAxiosInstance.patch('/user/toggle-ban', { userId })
   toast.success(response.data.message);
   return response.data;
 }
 
 export const blockUser = async (userId) => {
-  const response = await adminAxiosInstance.patch('/block-user', { userId })
+  const response = await adminAxiosInstance.patch('/user/toggel-block', { userId })
   toast.success(response.data.message);
 }
 
 export const UnblockUser = async (userId) => {
-  const response = await adminAxiosInstance.patch('/unblock-user', { userId });
+  const response = await adminAxiosInstance.patch('/user/toggle-block', { userId });
   toast.success(response.data.message)
 }
 

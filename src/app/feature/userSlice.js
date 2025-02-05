@@ -20,7 +20,7 @@ export const refreshAccessToken = createAsyncThunk(
     'user/refreshAccessToken',
     async(_, {rejectWithValue}) => {
         try {
-            const response = await axiosInstance.post('/refresh-token');
+            const response = await axiosInstance.post('/auth/user/refresh-token');
             const {accessToken} = response.data;
             return accessToken;
         } catch (error) {

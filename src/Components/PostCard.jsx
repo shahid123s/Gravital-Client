@@ -22,7 +22,7 @@ function PostCard({ postDetails }) {
     const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
     const [actionModal, setActionModal] = useState(null);
     const [actionContext, setActionContext] = useState(null);
-    const isUsers = Cookies.get('username') === postDetails.userID.username ? true : false;
+    const isUsers = Cookies.get('username') === postDetails.userId.username ? true : false;
 
     // console.log(postDetails, isSaved)
 
@@ -42,7 +42,7 @@ function PostCard({ postDetails }) {
             try {
                 console.log(postDetails)
                 const response = await axiosInstance.get('/user/about-profile', {
-                    params: { username: postDetails.userID.username }
+                    params: { username: postDetails.userId.username }
                 })
                 console.log(typeof response.data.user, 'this reponse')
                 setActionContext(response.data.user)
@@ -66,7 +66,7 @@ function PostCard({ postDetails }) {
 
     const handleAction = async (title, message) => {
         if (title === 'Report') {
-            await reportPost(postDetails._id, postDetails.userID._id, message);
+            await reportPost(postDetails._id, postDetails.userId._id, message);
         }  else if( title === 'Archive Post'){
             await archivePost(postDetails._id);
         } else if( title === 'Delete Post'){
@@ -83,9 +83,9 @@ function PostCard({ postDetails }) {
             <div className='flex justify-between text-[#99775C]  h-11 w-11/12'>
                 <div className='flex items-center gap-5'>
                     <div className='w-10 h-10 flex items-center overflow-hidden rounded-full'>
-                        <img src={postDetails.userID?.profileImage} alt="" />
+                        <img src={postDetails.userId?.profileImage} alt="" />
                     </div>
-                    <Link className='font-poppins text-lg' to={`/${postDetails.userID.username}`}>{postDetails.userID.fullName} <span className='text-sm text-[#828282]'> {postDetails.userID.username} </span></Link>
+                    <Link className='font-poppins text-lg' to={`/${postDetails.userId.username}`}>{postDetails.userId.fullName} <span className='text-sm text-[#828282]'> {postDetails.userId.username} </span></Link>
 
                 </div>
                 <button onClick={handleOption}><img src={MoreButton} alt="" /></button>

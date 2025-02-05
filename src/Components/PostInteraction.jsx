@@ -15,7 +15,7 @@ export function PostInteraction({likedCount, initialLikedByUser, postId, isSaved
 
     const toggleSavePost = async (postId) => {
         setIsSaved(!isSaved);
-        const response = await axiosInstance.post('/post/toggle-save', { postId });
+        const response = await axiosInstance.patch('/save/post', { postId });
         console.log(response);
 
     }
