@@ -17,7 +17,7 @@ export const reportUser = async (userId, message) => {
 }
 
 export const toggleBlock = async(userId) => {
-    const response = await axiosInstance.post('/toggle-block', {
+    const response = await axiosInstance.post('/block/toggle-block', {
         userId,
     })
     return response 
@@ -34,12 +34,12 @@ export const toggleBlock = async(userId) => {
 
 
 export const archivePost = async (postId) => {
-    const response = await axiosInstance.post('/post/archive', { postId });
+    const response = await axiosInstance.post('/archive', { postId });
     return response.data;
 }
 
 export const publishPost = async (postId) => {
-    const response = await axiosInstance.post('/post/publish', { postId });
+    const response = await axiosInstance.post('/publish', { postId });
     return response.data
 }
 

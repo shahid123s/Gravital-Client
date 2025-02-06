@@ -84,7 +84,7 @@ function Otpverfication() {
     const handleResend = async(event) => {
         event.preventDefault();
         try {
-        const response = axiosInstance.post('/user/api/send-otp', data)
+        const response = axiosInstance.post('/auth/send-otp', data)
         navigate('/otp-verification' , {state :{email : data.email, expireTime: Date.now() + 2* 60 * 1000} })
         } catch (error) {
             toast.warning(error,{

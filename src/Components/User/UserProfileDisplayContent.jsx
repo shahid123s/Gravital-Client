@@ -22,7 +22,7 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
 
     const fetchUserStatus = async () => {
         try {
-            const response = await axiosInstance.get('/user-status', {
+            const response = await axiosInstance.get('/user/status', {
                 params: {
                     userId: userDetails._id,
                 },
@@ -68,6 +68,7 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
     console.log(userDetails)
     const handleEdith = async (event) => {
         if (username) {
+            console.log(userDetails._id)
             toggleFollow(userDetails._id)
         }
         else {

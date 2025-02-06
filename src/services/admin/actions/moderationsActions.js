@@ -24,17 +24,17 @@ export const UnblockUser = async (userId) => {
 }
 
 export const restrictPost = async (postId) => {
-  const response = await adminAxiosInstance.patch('/restrict-post', { postId })
+  const response = await adminAxiosInstance.patch('/post/toggleRestriction', { postId })
   toast.success(response.data.message)
 }
 
 export const unRestrictPost = async (postId) => {
-  const response = await adminAxiosInstance.patch('/unrestrict-post', { postId });
+  const response = await adminAxiosInstance.patch('/post/toggleRestriction', { postId });
   toast.success(response.data.message)
 }
 
 export const boostPost = async (postId) => {
-  const response = await adminAxiosInstance.patch('/boost-post', { postId });
+  const response = await adminAxiosInstance.patch('/post/boost-post', { postId });
   toast.success(response.data.message)
 }
 

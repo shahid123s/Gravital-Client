@@ -11,7 +11,7 @@ const useArchivedPosts = () => {
         const fetchArchivePost = async () => {
             try {
                 setLoading(true);
-                const response = await axiosInstance.get("/post/archive");
+                const response = await axiosInstance.get("/archive");
                 setArchivePosts(response.data.posts || []); // Ensure it's an array
             } catch (error) {
                 console.error("Error fetching archived posts:", error);
