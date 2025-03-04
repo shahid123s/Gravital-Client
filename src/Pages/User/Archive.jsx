@@ -13,6 +13,8 @@ function Archive() {
    const [isOpen, setIsOpen] = useState(false)
   const [postData, setPostData] = useState(null);
 
+  console.log(archivePosts)
+
   return (
     <div className=' min-h-screen flex '>
         <Sidebar/>

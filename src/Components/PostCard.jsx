@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import ProfilePic from '../assets/image.png';
 import { Link } from 'react-router-dom';
 import MoreButton from '../assets/threedot.svg';
-
 import { axiosInstance } from '../utilities/axios';
-import useLike from '../hooks/toggleLike';
 import Spinner from './Spinner';
 import OptionModal from './User/Report/OptionModal';
 import OPTION_HEADER from '../enum/optionHeader';

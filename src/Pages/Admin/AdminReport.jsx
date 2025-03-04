@@ -20,8 +20,8 @@ function AdminReport() {
         try {
             setIsLoading(true);
 
-            const response = await adminAxiosInstance.get('/report-list', {
-                params: { page: currentPage, limit, search, filter},
+            const response = await adminAxiosInstance.get('/reports', {
+                params: { page: currentPage, limit, search, filter: filter === 'Filter'? 'All' : filter},
             })
             console.log(response)
 

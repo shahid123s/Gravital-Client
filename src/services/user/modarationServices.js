@@ -39,7 +39,7 @@ export const archivePost = async (postId) => {
 }
 
 export const publishPost = async (postId) => {
-    const response = await axiosInstance.post('/publish', { postId });
+    const response = await axiosInstance.post('/archive/publish', { postId });
     return response.data
 }
 

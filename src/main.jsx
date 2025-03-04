@@ -8,12 +8,12 @@ import store from './app/store.js'
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode >
+  // <StrictMode >
     <Provider store={store} >
     <Toaster  position='bottom-center' toastOptions={{
       className: 'border-none bg-transparent text-white aling-center'
     }}  />
     <App />
     </Provider>
-  </StrictMode>
+  // </StrictMode>
 )

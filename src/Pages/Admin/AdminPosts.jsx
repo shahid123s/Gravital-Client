@@ -18,7 +18,7 @@ function AdminPosts() {
   const fetchPostList = async () => {
     try {
       setIsLoading(true);
-      const response  = await adminAxiosInstance.get('/post-list',{
+      const response  = await adminAxiosInstance.get('/posts',{
         params: {page: currentPage, limit, search},
       })
       console.log(response)

@@ -14,7 +14,7 @@ export const unBanUser = async (userId) => {
 }
 
 export const blockUser = async (userId) => {
-  const response = await adminAxiosInstance.patch('/user/toggel-block', { userId })
+  const response = await adminAxiosInstance.patch('/user/toggle-block', { userId })
   toast.success(response.data.message);
 }
 

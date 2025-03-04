@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {adminAxiosInstance } from "../../utilities/axios";
+import {adminAxiosInstance, axiosInstance } from "../../utilities/axios";
 
 
 
@@ -7,7 +7,7 @@ export const adminLogin = createAsyncThunk(
     'admin/login',
     async(credentials, {rejectWithValue}) => {
         try {
-            const response = await adminAxiosInstance.post('/auth/admin/login', credentials);
+            const response = await axiosInstance.post('/auth/admin/login', credentials);
             const {accessToken} = response.data;
             return accessToken;
         } catch (error) {
@@ -21,7 +21,7 @@ export const adminLogout = createAsyncThunk(
     'admin/logout',
     async (_, {rejectWithValue}) => {
         try {
-            const response = await adminAxiosInstance.post('/logout');
+            const response = await axiosInstance.post('/logout');
             localStorage.removeItem('isAdmin')
             return response.data;
         } catch (error) {
