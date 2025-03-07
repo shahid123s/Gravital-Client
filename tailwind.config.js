@@ -16,6 +16,9 @@ export default {
       },
       maxHeight: {
         '70': '70vh'
+      },
+      width: {
+        '19': '19px' 
       }
     },
   },

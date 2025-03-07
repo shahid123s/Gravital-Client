@@ -28,13 +28,6 @@ function LoginComponent({ isAdmin }) {
         }
     }, []);
 
-    // useEffect(() => {
-    //     if (isAuthenticate && !isAdmin) {
-    //         navigate('/home');
-
-    //     }
-    // }, [navigate, isAuthenticate, error])
-
     const handleChange = (event) => {
         const { value, name } = event.target;
         setFormData({ ...formData, [name]: value })
@@ -75,7 +68,7 @@ function LoginComponent({ isAdmin }) {
 
 
     return (
-        <div className="pb-5 flex flex-col sm:p-2 sm:w-96 md:w-96 md:p-8 items-center gap-5 rounded-lg justify-center bg-[#f9f9f9]'" >
+        <div className="pb-5 flex flex-col sm:p-2 sm:w-96 md:w-96 bg-white  md:p-8 items-center gap-5 rounded-lg justify-center bg-[#f9f9f9]'" >
             <h2 className='text-24px font-poppins font-medium text-[#000]' >{tilte}</h2>
             <form action=""
                 onSubmit={handleSubmit}

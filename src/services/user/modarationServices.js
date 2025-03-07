@@ -2,14 +2,14 @@ import { toast } from "sonner";
 import { axiosInstance } from "../../utilities/axios"
 
 export const toggleRestriction = async(userId) => {
-    const response = await axiosInstance.post('/toggle-restriction', {
+    const response = await axiosInstance.post('/restriction/user', {
         restrictedUser: userId
     });
     return response
 }
 
 export const reportUser = async (userId, message) => {
-    const response = await axiosInstance.post('/report-user', {
+    const response = await axiosInstance.post('/report/user', {
         userId, 
         message,
     })
@@ -17,7 +17,7 @@ export const reportUser = async (userId, message) => {
 }
 
 export const toggleBlock = async(userId) => {
-    const response = await axiosInstance.post('/toggle-block', {
+    const response = await axiosInstance.post('/block/toggle-block', {
         userId,
     })
     return response 
@@ -33,8 +33,23 @@ export const toggleBlock = async(userId) => {
 //  }
 
 
+export const archivePost = async (postId) => {
+    const response = await axiosInstance.post('/archive', { postId });
+    return response.data;
+}
+
+export const publishPost = async (postId) => {
+    const response = await axiosInstance.post('/archive/publish', { postId });
+    return response.data
+}
+
+export const deletePost = async (postId) => {
+    const response = await axiosInstance.post('/post/delete', { postId });
+    return response.data;
+}
+ 
 export const reportPost = async (postId, userId, message) => {
-    const response = await axiosInstance.post('/report-post',{
+    const response = await axiosInstance.post('/report/post',{
         postId,
         userId,
         message,

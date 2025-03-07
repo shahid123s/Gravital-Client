@@ -5,9 +5,3 @@
 .no-scrollbar{
     scrollbar-width: none;
 }
-
-.Toastify__toast {
-    background: transparent !important;   /* Removes background */
-    color: #000 !important;               /* Sets text color */
-    box-shadow: none !important;          /* Removes shadow */
-  }

@@ -14,7 +14,7 @@ import { getUserProfileUrl } from '../../utilities/copyUrl';
 
 
 function UserDetailsDisplay({ userDetails, loading, username }) {
-    const { toggleFollow, isFollowed } = useFollow(userDetails.isFollowed)
+    const { toggleFollow, isFollowed } = useFollow(userDetails?.isFollowed)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [actionModal, setActionModal] = useState(null);
     const [actionContext, setActionContext] = useState(null);
@@ -22,14 +22,11 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
 
     const fetchUserStatus = async () => {
         try {
-            const response = await axiosInstance.get('/user-status', {
+            const response = await axiosInstance.get('/user/status', {
                 params: {
                     userId: userDetails._id,
                 },
             });
-
-            console.log(response)
-
             const {isRestricted, isBlocked} = response.data;
 
             // Update the options dynamically
@@ -71,6 +68,7 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
     console.log(userDetails)
     const handleEdith = async (event) => {
         if (username) {
+            console.log(userDetails._id)
             toggleFollow(userDetails._id)
         }
         else {
@@ -89,7 +87,7 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
         // console.log(title, 'ivda')
         if (title === 'About this Account') {
             try {
-                const response = await axiosInstance.get('/about-profile', {
+                const response = await axiosInstance.get('/user/about-profile', {
                     params: { username: userDetails.username }
                 })
                 console.log(typeof response.data.user, 'this reponse')
@@ -127,9 +125,9 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
     }
 
     return (
-        <div className='  flex flex-col  items-center w-full  bg-[#757575]  '>
+        <div className='  flex flex-col  items-center w-full  bg-[#121212]  shadow-2xl shadow-gray-500 '>
 
-            {userDetails.fullName && !loading && <div className=' w-full flex gap-9 justify-center items-center border-b border-[#f0f0f0f]   p-6 px-20 bg-inherit'>
+            {userDetails.fullName && !loading && <div className=' w-full flex gap-9 justify-center items-center    p-6 px-20 bg-inherit'>
                 <div className='w-52 overflow-hidden rounded-full h-52 flex justify-center items-center bg-zinc-600'>
                     {!loading && <img src={userDetails.profileImage || UserLogo} alt="" className='' />}
                 </div>
@@ -138,7 +136,7 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
                         <h1 className='text-3xl '>{userDetails.fullName}</h1>
                         <button className='bg-[#4A90E2] rounded-lg p-2 ' onClick={handleEdith}>{!username ? 'Edit Profile' : isFollowed ? 'Unfollow' : 'Follow'}</button>
                         <button className='bg-[#4A90E2] rounded-lg p-2'>{!username ? 'View Activity' : 'Message'}</button>
-                        <button onClick={handleReport}><img src={MoreButton} alt="" /></button>
+                        {username && <button onClick={handleReport}><img src={MoreButton} alt="" /></button>}
 
 
                     </div>

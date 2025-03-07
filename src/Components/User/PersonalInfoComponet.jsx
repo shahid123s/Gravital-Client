@@ -34,7 +34,7 @@ function PersonalInfoComponet() {
         setValidatedError(validateError)
         if(Object.keys(validateError).length === 0){
             console.log('okay aanu mone');
-            const response = await axiosInstance.post('/register', userData);
+            const response = await axiosInstance.post('/auth/register', userData);
             toast.success(response?.data?.message);
             navigate('/login')
         }

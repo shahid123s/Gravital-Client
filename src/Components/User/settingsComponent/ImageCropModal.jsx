@@ -83,7 +83,7 @@ function ImageCropModal({ imageSrc, setImageCrop, MIN_WIDTH, ASPECT_RATIO, setDa
     }
   }
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
         onDoubleClick={handleClose}
     >
       {/* {loading && <Spinner/> } */}

@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer, {refreshAccessToken, logout} from './feature/userSlice'
 import adminReducer, { adminLogout, refreshAdminToken } from "./feature/adminSlice";
-import {axiosInstance, adminAxiosInstance, postAxiosInstance} from "../utilities/axios";
+import {axiosInstance, adminAxiosInstance,} from "../utilities/axios";
 
 
 export const store = configureStore({
@@ -38,15 +38,12 @@ axiosInstance.interceptors.response.use(
 
             try {
                 const resultAction = await store.dispatch(refreshAccessToken());
-                    console.log('okay');
                 if (refreshAccessToken.fulfilled.match(resultAction)) {
-                    console.log('okay1');
                     const newAccessToken = resultAction.payload;
                     originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                     return axiosInstance(originalRequest); // Retry original request with new token
                 } else {
                     store.dispatch(logout());
-                    console.log('okay2')
                     return Promise.reject(error); // Return error if refresh failed
                 }
             } catch (refreshError) {

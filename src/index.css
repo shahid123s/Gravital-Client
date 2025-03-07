@@ -7,10 +7,7 @@
     background-color: inherit;
 }
 
-div{
-    background-color: #f9f9f9;
-}
-
+ 
 h1{
     text-align: start;
 }
@@ -23,3 +20,26 @@ h1{
     @apply max-h-[70vh]
 }
 
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scrollbar-hide {
+    scrollbar-width: none;
+}
+
+/* Custom Thin Scrollbar */
+.thin-scrollbar::-webkit-scrollbar {
+    width: 4px; /* Adjust the width */
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(100, 100, 100, 0.5); /* Thumb color */
+    border-radius: 10px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Track color */
+}

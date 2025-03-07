@@ -15,10 +15,22 @@ import UserProfile from './Pages/User/UserProfile'
 import Settings from './Pages/User/Settings'
 import Favourites from './Pages/User/Favourites'
 import AdminReport from './Pages/Admin/AdminReport'
+import Archive from './Pages/User/Archive'
+// import LivePage from './Pages/User/LivePage'
+// import Video from './Pages/User/Video'
+// import BroadcasterPage from './Pages/User/sream/BroadcasterPage'
+import MessagePage from './Pages/User/MessagePage'
+import { ChatProvider } from './contextApi/chatContext'
+import SeachPage from './Components/Modals/SearchModel'
+import Trending from './Pages/User/Trending'
+import PostCard from './Components/PostCard'
+import PostPage from './Pages/User/PostPage'
+// import StreamingPage from './Pages/User/StreamingPage'
 
 
 const Register = lazy(() => import('./Pages/User/Register'));
 const PersonalInformtion = lazy(() => import('./Pages/User/PersonalInformtion'));
+const StreamingPage = lazy(() => import ('./Pages/User/StreamingPage'));
 
 function App() {
 
@@ -40,11 +52,23 @@ function App() {
               <Route path='reset-password/email' element={<ForgetEmailPassword />} />
               <Route path='home' element={<Home />} />
               <Route path='profile' element={<UserProfile />} />
+              <Route path='trending' element={<Trending />} />
+              <Route path='post/:postId' element={<PostPage />} />
+              {/* <Route path='live' element={<LivePage />} /> */}
+              {/* <Route path='okay' element={<Video />} /> */}
+              {/* <Route path='stream' element={<BroadcasterPage/>} /> */}
+              <Route path='message' element={
+                <ChatProvider>
+                  <MessagePage/>
+                </ChatProvider>
+                } />
+              
               <Route path='/:username' element ={<UserProfile isCurrentUser={false}/>} />
               <Route path='settings'   >
                 <Route index element={<Navigate to="edit-profile" replace />} />
                 <Route path='edit-profile' element={<Settings />} />
                 <Route path='account-privacy' element={<Settings />} />
+                <Route path='archive' element={<Archive />} />
               </Route>
               <Route path ='favourites' element = { <Favourites/> } />
             </Route>

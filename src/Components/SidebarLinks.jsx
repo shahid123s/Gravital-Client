@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../app/feature/userSlice'
 import { toast } from 'sonner';
 
-function SidebarLinks({ logo, name, isAdmin, textColor, textSize, username }) {
+function SidebarLinks({ logo, name, isAdmin, textColor, textSize, username, setClose }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const link = name.toLowerCase().replace(/ /g, '-');
@@ -30,6 +30,11 @@ function SidebarLinks({ logo, name, isAdmin, textColor, textSize, username }) {
 
       navigate(`/admin/${link}`);
 
+    }
+
+    else if (name === 'Search') {
+      console.log("clicked search")
+      setClose();
     }
    
     else {

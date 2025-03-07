@@ -14,10 +14,11 @@ function AdminPosts() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const  limit = 2;
+
   const fetchPostList = async () => {
     try {
       setIsLoading(true);
-      const response  = await adminAxiosInstance.get('/post-list',{
+      const response  = await adminAxiosInstance.get('/posts',{
         params: {page: currentPage, limit, search},
       })
       console.log(response)
@@ -39,7 +40,7 @@ function AdminPosts() {
   return (
     <div>
         <AdminSideBar/>
-      <AdminContent name={'Post List'} search={search} >
+      <AdminContent name={'Post List'} search={search} setSearch={setSearch} >
         <AdminTableComponent
           search={search}
           fetchData={fetchPostList}

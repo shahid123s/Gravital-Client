@@ -4,25 +4,27 @@ import Content from '../../Components/User/Content'
 import Suggestion from '../../Components/User/Suggestion'
 import { UserAuth } from '../../Components/Private/UserAuth'
 import useFetchUserData from '../../hooks/fetchUserDetail'
+import SocketProvider from '../../contextApi/SocketProvider'
 
 function Home() {
-   const {userDetails} = useFetchUserData()
+   const { userDetails } = useFetchUserData()
 
 
 
-  return (
-     <UserAuth>
-    <div className=' min-h-screen flex '>
+   return (
+      <UserAuth>
+         <div className=' min-h-screen flex '>
 
-
-     <Sidebar  />
-      <div className='flex justify-evenly w-full'>
-      <Content profileImage = {userDetails.profileImage} />
-      <Suggestion userDetails={userDetails}/>
-      </div>
-    </div>
-     </UserAuth>
-  )
+            <SocketProvider>
+               <Sidebar />
+            </SocketProvider>
+            <div className='flex justify-evenly w-full bg-[#121212]'>
+               <Content profileImage={userDetails.profileImage} />
+               <Suggestion userDetails={userDetails} />
+            </div>
+         </div>
+      </UserAuth>
+   )
 }
 
 export default Home

@@ -34,7 +34,7 @@ function RegisterComponent() {
       setValidatedError(validateError)
       console.log(validatedError)
       if (Object.keys(validateError).length === 0) {
-        const response = await axiosInstance.post('/send-otp', userData)
+        const response = await axiosInstance.post('/auth/send-otp', userData)
         console.log(response.data.message);
         toast.success(response.data.message, {
           position: 'top-left',

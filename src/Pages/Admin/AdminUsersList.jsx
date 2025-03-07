@@ -18,7 +18,7 @@ function AdminUsersList() {
   const fetchUsersList = async () => {
     try {
       setIsLoading(true);
-      const response = await adminAxiosInstance.get('/users-list', {
+      const response = await adminAxiosInstance.get('/users', {
         params: { page: currentPage, limit, search }
       });
       if(response.data.totalPage < currentPage) {

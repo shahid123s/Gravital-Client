@@ -1,12 +1,14 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {axiosInstance} from '../../utilities/axios';
+import Cookies from 'js-cookie';
 
 export const login = createAsyncThunk(
     'user/login',
     async (credentials, {rejectWithValue}) => {
         try {
-            const response = await axiosInstance.post('/login', credentials);
-            const {accessToken} = response.data;
+            const response = await axiosInstance.post('/auth/user/login', credentials);
+            const {accessToken, username} = response.data;
+            Cookies.set('username', username, {expires: 7});
             return accessToken;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Login Failed');
@@ -18,7 +20,7 @@ export const refreshAccessToken = createAsyncThunk(
     'user/refreshAccessToken',
     async(_, {rejectWithValue}) => {
         try {
-            const response = await axiosInstance.post('/refresh-token');
+            const response = await axiosInstance.post('/auth/user/refresh-token');
             const {accessToken} = response.data;
             return accessToken;
         } catch (error) {
@@ -31,7 +33,8 @@ export const logout = createAsyncThunk(
     'user/logout',
     async (_, {rejectWithValue}) => {
        try {
-        const response = await axiosInstance.post('/logout');
+        const response = await axiosInstance.post('/auth/user/logout');
+        Cookies.remove('username');
         return response.data
        } catch (error) {
         return rejectWithValue(error.response?.data?.message);

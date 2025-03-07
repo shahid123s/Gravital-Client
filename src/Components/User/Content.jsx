@@ -33,8 +33,8 @@ function Content({profileImage}) {
 
   
   return (
-    <div className='ml-64  flex flex-col h-full justify-center items-center w-[60%] bg-inherit  '>
-      <div className='bg-[#4A90E2] w-11/12  px-10 py-5 h-full flex flex-col gap-20  items-center'>
+    <div className='ml-64  flex flex-col h-full justify-center items-center w-[60%] bg-inherit text-[#E6EDF3] pb-10 '>
+      <div className='bg-[#121212] w-11/12  px-10 py-5 h-full flex flex-col gap-10  items-center'>
         
     <AddPostComponent  profileImage = {profileImage} />
     {/* <AddPostModel/> */}

@@ -20,7 +20,7 @@ function AdminTableBody({ dataCollection, hanldeClick, handleAction }) {
           <td className="px-10 py-2 " >
             <img src={data.profileImage || data.fileName || data.details.fileName || data.details.profileImage} className="w-14 rounded-xl " alt="data profile" />
           </td>
-          <td className="px-4 py-2" onClick={() => hanldeClick(data._id, data.username ? 'user': data.type ? false: 'post')}>{data.fullName || data.userID?.username || data.type} </td>
+          <td className="px-4 py-2 cursor-pointer" onClick={() => hanldeClick(data._id, data.username ? 'user' : data.type? data.type : 'post')}>{data.fullName || data.userId?.username || (data.type === 'user' ? <p>user <span className= 'text-gray-400'>{`( ${data.details?.username} ) `}</span></p>: 'post' )} </td>
           <td className="px-4 py-2" onClick={() => ''}>{data.email || data.uploadDate || data.reportCount}</td>
           <td className="px-4 py-2">{data?.status || calculateStatus(data).status}</td>
           <td className="px-4 py-2">

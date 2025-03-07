@@ -14,7 +14,7 @@ const useFetchUserData = (username) => {
   const fetchUserData = async () => {
     setUserDetails({})
     try {
-      const response = await axiosInstance.get('/user-details',{
+      const response = await axiosInstance.get('/user/details',{
         params: {username: username || null }
       });
       const data = response.data.user;

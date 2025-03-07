@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import debounce from "lodash.debounce";
 
-const useInfiniteScroll = (fetchData, dependencies = [], delay = 30) => {
+const useInfiniteScroll = (fetchData, dependencies = [], delay = 30, params= {}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +11,7 @@ const useInfiniteScroll = (fetchData, dependencies = [], delay = 30) => {
     // Core loadMore logic
     const loadMoreCore = useCallback(async () => {
         if (!hasMore || isLoading) {
+            toast.success('Post Are done')
             console.log("No more data or already loading");
             return;
         }
@@ -18,8 +19,7 @@ const useInfiniteScroll = (fetchData, dependencies = [], delay = 30) => {
         setIsLoading(true);
 
         try {
-            const result = await fetchData(page);
-            console.log(result);
+            const result = await fetchData(page, params);
             setData((prevData) => [...prevData, ...result.data]); // Append data
             setHasMore(result.hasMore);
             setPage((prev) => prev + 1); // Increment page

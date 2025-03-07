@@ -4,6 +4,7 @@ import AdminContent from '../../Components/Admin/AdminContent'
 import AdminTableComponent from '../../Components/Admin/AdminTableComponent'
 import { adminAxiosInstance } from '../../utilities/axios';
 import TABLE_HEADERS from '../../enum/tableHeader';
+import { toast } from 'sonner';
 
 function AdminReport() {
     const [search, setSearch] = useState('');
@@ -11,6 +12,7 @@ function AdminReport() {
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [filter, setFilter] = useState('Filter');
     const limit = 2;
 
 
@@ -18,8 +20,8 @@ function AdminReport() {
         try {
             setIsLoading(true);
 
-            const response = await adminAxiosInstance.get('/report-list', {
-                params: { page: currentPage, limit, search },
+            const response = await adminAxiosInstance.get('/reports', {
+                params: { page: currentPage, limit, search, filter: filter === 'Filter'? 'All' : filter},
             })
             console.log(response)
 
@@ -31,15 +33,18 @@ function AdminReport() {
             setIsLoading(false);
 
         } catch (error) {
-            toast.error(error.message);
+            toast .error(error.message);
 
         }
     }
+
+    
 
     return (
         <div>
             <AdminSideBar />
             <AdminContent name={'Report List'} search={search} setSearch={setSearch}>
+        
                 <AdminTableComponent
                     search={search}
                     fetchData={fetchReportList}
@@ -49,6 +54,8 @@ function AdminReport() {
                     setCurrentPage={setCurrentPage}
                     totalPages={totalPages}
                     TABLE_HEADERS={TABLE_HEADERS.REPORT_HEADER}
+                    setFilter = {setFilter}
+                    filter={filter}
                 />
             </AdminContent>
         </div>

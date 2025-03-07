@@ -36,7 +36,7 @@ function ForgetPasswordComponent() {
             setError(null)
             try {
                 console.log('vanna')
-                const response = await axiosInstance.post('/reset-password', passwords);
+                const response = await axiosInstance.post('/auth/user/reset-password', passwords);
                 toast.success(response.data?.message);
                 navigate('/login')
             } catch (error) {

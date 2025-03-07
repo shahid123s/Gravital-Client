@@ -44,6 +44,34 @@ const OPTION_HEADER =  {
             title: 'About this Account', 
             color: 'default'
         },
+    ],
+    USERPOST: [
+        {
+            title: 'Delete Post',
+            color: 'red',
+        },
+        {
+            title: 'Archive Post',
+            color: 'red',
+        },
+        {
+            title: 'Share to...',
+            color: 'default',
+        },
+        {
+            title: 'Copy link',
+            color: 'default',
+        },
+    ],
+    ARCHIVE_POST: [
+        {
+            title: 'Delete Post',
+            color: 'red',
+        },
+        {
+            title: 'Publish',
+            color: 'blue',
+        },
     ]
 }
 

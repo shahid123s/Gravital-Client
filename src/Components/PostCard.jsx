@@ -1,40 +1,30 @@
 import React, { useState } from 'react';
-import ProfilePic from '../assets/image.png';
 import { Link } from 'react-router-dom';
 import MoreButton from '../assets/threedot.svg';
-import LikeButton from '../assets/heart.svg';
-import LikedButton from '../assets/LikedButton.svg';
-import CommentButton from '../assets/comment.svg';
-import ShareButton from '../assets/share.svg';
-import SaveButton from '../assets/savePostLogo.svg';
-import SavedButton from '../assets/saved-logo.svg';
-import ReachBtn from '../assets/graph.svg';
 import { axiosInstance } from '../utilities/axios';
-import useLike from '../hooks/toggleLike';
 import Spinner from './Spinner';
 import OptionModal from './User/Report/OptionModal';
 import OPTION_HEADER from '../enum/optionHeader';
 import ActionModal from './Modals/ActionModal';
 import ACTION_OPTIONS from '../enum/actionOptions';
-import { reportPost } from '../services/user/modarationServices';
+import { archivePost, deletePost, reportPost } from '../services/user/modarationServices';
 import { toast } from 'sonner';
+import Cookies from 'js-cookie'
+import { PostInteraction } from './PostInteraction';
+import PostModal from './Modals/PostModal';
 
 function PostCard({ postDetails }) {
-    const { likes, likedByUser, toggleLike } = useLike(postDetails.likedCount, postDetails.likedByUser, postDetails._id)
-    const [isSaved, setIsSaved] = useState(postDetails.isSavedByUser)
+    // const {toggleLike } = useLike(postDetails.likedCount, postDetails.likedByUser, postDetails._id)
+    // const [isSaved, setIsSaved] = useState(postDetails.isSavedByUser)
     const [isImageLoad, setIsImageLoad] = useState(false);
     const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
     const [actionModal, setActionModal] = useState(null);
     const [actionContext, setActionContext] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const isUsers = Cookies.get('username') === postDetails.userId.username ? true : false;
 
-    // console.log(postDetails, isSaved)
+    console.log(postDetails)
 
-    const toggleSavePost = async (postId) => {
-        setIsSaved(!isSaved);
-        const response = await axiosInstance.post('/post/toggle-save', { postId });
-        console.log(response);
-
-    }
 
     const loadImage = () => {
         setIsImageLoad(true)
@@ -50,8 +40,8 @@ function PostCard({ postDetails }) {
         if (title === 'About this Account') {
             try {
                 console.log(postDetails)
-                const response = await axiosInstance.get('/about-profile', {
-                    params: { username: postDetails.userID.username }
+                const response = await axiosInstance.get('/user/about-profile', {
+                    params: { username: postDetails.userId.username }
                 })
                 console.log(typeof response.data.user, 'this reponse')
                 setActionContext(response.data.user)
@@ -63,7 +53,7 @@ function PostCard({ postDetails }) {
             return
 
         }
-
+       
         setActionContext(ACTION_OPTIONS.POST[title]);
         setActionModal(title);
     }
@@ -74,27 +64,36 @@ function PostCard({ postDetails }) {
     }
 
     const handleAction = async (title, message) => {
-        if(title === 'Report'){
-            await reportPost(postDetails._id, postDetails.userID._id, message);
+        if (title === 'Report') {
+            await reportPost(postDetails._id, postDetails.userId._id, message);
+        }  else if( title === 'Archive Post'){
+            await archivePost(postDetails._id);
+        } else if( title === 'Delete Post'){
+            await deletePost(postDetails._id);
         }
+
         toast.success(title)
         setActionModal(null);
         setActionContext(null);
     }
 
+    const handleModelOpen = () => {
+        setIsModalOpen(prev => !prev)
+    }
+
     return (
-        <div className='flex flex-col justify-center items-center font-poppins w-[99%] px-4 py-7 rounded-2xl gap-5'>
+        <div className='flex flex-col justify-center items-center font-poppins w-[99%] px-4 py-7 bg-[] shadow-lg text-[#E6EDF3] rounded-2xl gap-5'>
             <div className='flex justify-between text-[#99775C]  h-11 w-11/12'>
                 <div className='flex items-center gap-5'>
                     <div className='w-10 h-10 flex items-center overflow-hidden rounded-full'>
-                        <img src={postDetails.userID.profileImage} alt="" />
+                        <img src={postDetails.userId?.profileImage} alt="" />
                     </div>
-                    <Link className='font-poppins text-lg' to={`/${postDetails.userID.username}`}>{postDetails.userID.fullName} <span className='text-sm'> {postDetails.userID.username} </span></Link>
+                    <Link className='font-poppins text-lg' to={`/${postDetails.userId.username}`}>{postDetails.userId.fullName} <span className='text-sm text-[#828282]'> {postDetails.userId.username} </span></Link>
 
                 </div>
                 <button onClick={handleOption}><img src={MoreButton} alt="" /></button>
                 {isOptionModalOpen && <OptionModal
-                    OPTION_HEADER={OPTION_HEADER.POST}
+                    OPTION_HEADER={isUsers ? OPTION_HEADER.USERPOST : OPTION_HEADER.POST}
                     setClose={handleOption}
                     handleOptionActions={handleActionModal}
                 />}
@@ -113,19 +112,28 @@ function PostCard({ postDetails }) {
 
             <div className='w-11/12 overflow-hidden rounded-2xl aspect-square flex justify-center'>
 
-                {isImageLoad ? <img onDoubleClick={toggleLike} onLoad={loadImage} src={postDetails.postUrl} alt="" /> : <Spinner fill={true} />}
+                {isImageLoad ? <img onLoad={loadImage} src={postDetails.postUrl} alt="" /> : <Spinner fill={true} />}
                 <img src={postDetails.postUrl} onLoad={loadImage} className='hidden' />
 
             </div>
 
-            <div className='w-11/12 flex  justify-around '> {/* ith oru component akkanam marakkallee...... */}
-                <button className='  flex gap-4 items-center ' onClick={toggleLike} ><img className='w-5' src={likedByUser ? LikedButton : LikeButton} alt="" />{likes}</button>
-                <button className='  flex gap-4 items-center '><img className='w-6' src={CommentButton} alt="" />1.2K</button>
-                <button className='  flex gap-4 items-center '><img className='w-5' src={ReachBtn} alt="" />1.2K</button>
-                <button className='  flex gap-4 items-center '><img className='w-5' src={ShareButton} alt="" />1.2K</button>
-                <button className='  flex gap-4 items-center '><img className='w-5' onClick={() => toggleSavePost(postDetails._id)} src={isSaved ? SavedButton : SaveButton} alt="" /></button>
+            <PostInteraction
+                isSavedByUser={postDetails.isSavedByUser}
+                postId={postDetails._id}
+                initialLikedByUser={postDetails.likedByUser}
+                likedCount={postDetails.likedCount}
+                handleModelOpen={handleModelOpen}
+                commentCount={postDetails.commentCount}
+                shareCount={postDetails.shareCount}
+            />
 
-            </div>
+            <PostModal 
+            isOpen={isModalOpen}
+            postDetails={postDetails}
+            onClose={handleModelOpen}
+            actionHeader={isUsers ? OPTION_HEADER.USERPOST : OPTION_HEADER.POST}
+            />
+            
         </div>
     )
 }
