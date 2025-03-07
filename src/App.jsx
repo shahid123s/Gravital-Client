@@ -21,6 +21,10 @@ import Archive from './Pages/User/Archive'
 // import BroadcasterPage from './Pages/User/sream/BroadcasterPage'
 import MessagePage from './Pages/User/MessagePage'
 import { ChatProvider } from './contextApi/chatContext'
+import SeachPage from './Components/Modals/SearchModel'
+import Trending from './Pages/User/Trending'
+import PostCard from './Components/PostCard'
+import PostPage from './Pages/User/PostPage'
 // import StreamingPage from './Pages/User/StreamingPage'
 
 
@@ -48,6 +52,8 @@ function App() {
               <Route path='reset-password/email' element={<ForgetEmailPassword />} />
               <Route path='home' element={<Home />} />
               <Route path='profile' element={<UserProfile />} />
+              <Route path='trending' element={<Trending />} />
+              <Route path='post/:postId' element={<PostPage />} />
               {/* <Route path='live' element={<LivePage />} /> */}
               {/* <Route path='okay' element={<Video />} /> */}
               {/* <Route path='stream' element={<BroadcasterPage/>} /> */}

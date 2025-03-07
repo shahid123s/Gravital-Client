@@ -11,6 +11,7 @@ import { archivePost, deletePost, reportPost } from '../services/user/modaration
 import { toast } from 'sonner';
 import Cookies from 'js-cookie'
 import { PostInteraction } from './PostInteraction';
+import PostModal from './Modals/PostModal';
 
 function PostCard({ postDetails }) {
     // const {toggleLike } = useLike(postDetails.likedCount, postDetails.likedByUser, postDetails._id)
@@ -19,9 +20,10 @@ function PostCard({ postDetails }) {
     const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
     const [actionModal, setActionModal] = useState(null);
     const [actionContext, setActionContext] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const isUsers = Cookies.get('username') === postDetails.userId.username ? true : false;
 
-    // console.log(postDetails, isSaved)
+    console.log(postDetails)
 
 
     const loadImage = () => {
@@ -75,6 +77,10 @@ function PostCard({ postDetails }) {
         setActionContext(null);
     }
 
+    const handleModelOpen = () => {
+        setIsModalOpen(prev => !prev)
+    }
+
     return (
         <div className='flex flex-col justify-center items-center font-poppins w-[99%] px-4 py-7 bg-[] shadow-lg text-[#E6EDF3] rounded-2xl gap-5'>
             <div className='flex justify-between text-[#99775C]  h-11 w-11/12'>
@@ -116,6 +122,16 @@ function PostCard({ postDetails }) {
                 postId={postDetails._id}
                 initialLikedByUser={postDetails.likedByUser}
                 likedCount={postDetails.likedCount}
+                handleModelOpen={handleModelOpen}
+                commentCount={postDetails.commentCount}
+                shareCount={postDetails.shareCount}
+            />
+
+            <PostModal 
+            isOpen={isModalOpen}
+            postDetails={postDetails}
+            onClose={handleModelOpen}
+            actionHeader={isUsers ? OPTION_HEADER.USERPOST : OPTION_HEADER.POST}
             />
             
         </div>
