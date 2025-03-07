@@ -18,7 +18,6 @@ function PostPage() {
                     postId,
                 }
             })
-            console.log(reponse.data.post)
             setPostDetails(reponse.data.post)
         }
         fetchPostDetail()
