@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import UseChatDetails from './UseChatDetails';
-import { axiosInstance } from '../../../utilities/axios';
 import { useChat } from '../../../contextApi/chatContext';
+import FollowerList from '../../Modals/followerList';
 
 function ChatList() {
-    // const [chatList, setChatList] = useState([]);
-    const { handleModel, chatList } = useChat();
+    const { handleModel, chatList,  isOpen,setClose , followList, createChat, handleChange} = useChat();
 
-    // useEffect(() => {
-    //     const fetchChatList = async () => {
-    //         const chatListResponse = await axiosInstance.get('/chat');
-    //         setChatList(chatListResponse.data.chatList);
-    //     };
-
-    //     fetchChatList();
-    // }, []);
-
+   
     return (
         <div className='py-9 w-[25%] px-2 p-10 gap-5 flex flex-col border-r-[.1px] border-[#828282] max-h-screen overflow-y-auto scrollbar-hide'>
             <div>
@@ -23,6 +14,7 @@ function ChatList() {
                     type="text"
                     placeholder="Search"
                     pattern="[a-zA-Z\s]"
+                    onChange={handleChange}
                     className="bg-white/20 backdrop-blur-lg border border-white/30 shadow-lg text-white rounded-lg p-2 px-6 placeholder-white/60 outline-none  w-full"
                 />
             </div>
@@ -37,6 +29,7 @@ function ChatList() {
                     </div>
                 )}
             </div>
+            {isOpen && <FollowerList onClose={setClose} followerList={followList}  createChat={createChat}/>}
         </div>
     );
 }

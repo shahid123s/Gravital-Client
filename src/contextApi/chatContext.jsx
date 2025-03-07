@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { axiosInstance } from "../utilities/axios";
 import { io } from "socket.io-client";
 import Cookies from 'js-cookie';
+import { useSocket } from "./SocketProvider";
 
 
 const ChatContext = createContext();
@@ -9,22 +10,24 @@ const username = Cookies.get('username')
 
 export const useChat = () => useContext(ChatContext);
 
-// ✅ Ensure socket is only created once
-const socket = io('http://localhost:8000', {
-    transports: ["websocket", "polling"],
-    withCredentials: true,
-    autoConnect: false, // Prevents auto-connect on mount
-    auth: {
-        username,
-    }
-});
+// // ✅ Ensure socket is only created once
+// const socket = io('http://localhost:8000', {
+//     transports: ["websocket", "polling"],
+//     withCredentials: true,
+//     autoConnect: false, // Prevents auto-connect on mount
+//     auth: {
+//         username,
+//     }
+// });
 
 export const ChatProvider = ({ children }) => {
-
-    const [loading, setLoading] = useState(false);
+    const providedSocket = useSocket();
+    const [socket, setSocket] = useState(providedSocket?.socket);
+    const [loading, setLoading] = useState(false);  
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [chatList, setChatList] = useState([]);
+    const [followList, setFollowList] = useState([]);
     const [isReaded, setIsReaded] = useState(true)
     const [lastMessageCount, setLastMessageCount] = useState(messages.length)
     const [conversations, setConversation] = useState(null);
@@ -34,22 +37,24 @@ export const ChatProvider = ({ children }) => {
         if (messages.length > lastMessageCount) {
             console.log("New message received:", messages[messages.length - 1]);
             setLastMessageCount(messages.length);
-          }
-    },[messages])
+        }
+    }, [messages])
+
+    const fetchChatList = async () => {
+        const chatListResponse = await axiosInstance.get('/chat');
+        setChatList(chatListResponse.data.chatList);
+        console.log(chatListResponse.data.chatList)
+    };
+
 
     useEffect(() => {
-
-        const fetchChatList = async () => {
-            const chatListResponse = await axiosInstance.get('/chat');
-            setChatList(chatListResponse.data.chatList);
-        };
-
         fetchChatList();
-
-        socket.connect();
-
-        socket.on("connect", () => console.log("Socket connected:", socket.id));
-        socket.on("disconnect", () => console.log("Socket disconnected"));
+        if(!socket) return; 
+        // socket.connect();
+        setSocket(providedSocket?.socket);  
+        console.log(socket, 'socket')   
+        // socket.on("connect", () => console.log("Socket connected:", socket.id));
+        // socket.on("disconnect", () => console.log("Socket disconnected"));
 
         // ✅ Listen for new messages in real time
         socket.on("receiveMessage", (msg) => {
@@ -59,24 +64,36 @@ export const ChatProvider = ({ children }) => {
                 ...msg,
             };
 
-            setMessages((prev) => [ messageWithUser,...prev,]);
+            setMessages((prev) => [messageWithUser, ...prev,]);
         });
 
         return () => {
-            socket.off("receiveMessage"); 
+            socket.off("receiveMessage");
             socket.disconnect();
         };
-    }, []);
+    }, [socket]);''
 
-    const handleChange = (event) => {
+    const handleChange = async (event) => {
+        const value = event.target.value;
+        if(value === '') return setClose();
+        setIsOpen(true)
+        const filteredChatList = await axiosInstance.get('/user/search',{
+            params: {
+                username: value,
+            }
+        })
+        setFollowList(filteredChatList.data.usersList)   ;
 
     }
+
+  
+
 
     /** Fetch messages for a conversation */
     const handleClick = async (conversationId, chatDetails) => {
         console.log("Joining room:", conversationId);
         setchatDetails(chatDetails)
-        socket.emit('joinRoom', conversationId); 
+        socket.emit('joinRoom', conversationId);
 
         try {
             const response = await axiosInstance.get('/chat/message', {
@@ -89,6 +106,17 @@ export const ChatProvider = ({ children }) => {
             console.error("Error fetching messages:", error);
         }
     };
+
+    const createChat = async (userId) => {
+        const response = await axiosInstance.post('/chat', {
+            userId,
+        });
+        console.log(response.data, 'ivda');
+        fetchChatList();
+        
+        setClose()
+
+    }
 
     /** Send a message */
     const sendMessage = async (conversationId, message) => {
@@ -110,20 +138,30 @@ export const ChatProvider = ({ children }) => {
         setIsOpen(false);
     };
 
+    const handleModel = async () => {
+        console.log('clicked')
+        const response = await axiosInstance.get('/follow/followings');
+        setFollowList(response.data.followList);
+        setIsOpen(true);
+    }
+
     return (
-        <ChatContext.Provider value={{ 
-            conversations, 
-            loading, 
-            setLoading, 
-            handleClick, 
+        <ChatContext.Provider value={{
+            conversations,
+            loading,
+            setLoading,
+            handleClick,
             isOpen,
-            sendMessage, 
-            messages, 
+            sendMessage,
+            messages,
             setClose,
-            socket,
+            socket: socket,
             chatList,
             chatDetails,
-            handleChange
+            handleChange,
+            handleModel,
+            followList,
+            createChat,
         }}>
             {children}
         </ChatContext.Provider>

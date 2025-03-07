@@ -8,13 +8,27 @@ import ACTION_OPTIONS from '../../enum/actionOptions';
 import ActionModal from './ActionModal';
 import { archivePost, deletePost, publishPost, reportPost } from '../../services/user/modarationServices';
 import { axiosInstance } from '../../utilities/axios';
+import SingleComment from '../User/Comments/SingleComment';
+import { Send } from 'lucide-react';
+import { getComments, sendComment } from '../../services/user/commentService';
+import {v4 as uuid} from 'uuid'
 
-function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, actionHeader }) {
+function PostModal({ isOpen, onClose, postDetails, isArchive, actionHeader }) {
+    const [postId, setPostId] = useState(postDetails?._id);
     const [isOptionOpen, setIsOptionModalOpen] = useState(false)
     const [isActionModalOpen, setIsActionModalOpen] = useState(false);
     const [actionContext, setActionContext] = useState(null);
- 
+    const [comments, setComments] = useState([]);  
 
+    useEffect(() => {
+    
+        const fetchComments = async () => {
+            const response = await getComments(postId);
+            setComments(prev => [...prev, ...response]);
+        }
+        fetchComments();
+       
+    }, postDetails)
 
     const handleOptionModal = () => {
         setIsOptionModalOpen(true)
@@ -27,9 +41,9 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
                 params: { username: postDetails.userId.username }
             })
             setActionContext(response.data.user)
-            setIsActionModalOpen(title);
+            setIsActionModalOpen(title);t
             return setIsOptionModalOpen(false);
-          
+
         }
 
         setIsOptionModalOpen(false);
@@ -49,8 +63,8 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
             await archivePost(postDetails._id)
         }
         if (title === 'Report') {
-             await reportPost(postDetails._id, postDetails.userId._id, value);
-        } 
+            await reportPost(postDetails._id, postDetails.userId._id, value);
+        }
         toast.success(title)
         setIsActionModalOpen(null);
         setActionContext(null)
@@ -59,6 +73,24 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
         }, 2000);
         onClose()
     }
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const comment = {
+            _id: uuid(),
+            comment: e.target.comment.value,
+        }
+
+        console.log(comment)
+
+        if (!comment) return;
+        await sendComment(postId, comment.comment);
+        setComments(prev => [comment, ...prev]);
+        e.target.comment.value = '';
+   
+    }
+
 
     console.log(postDetails)
     if (!isOpen) return null;
@@ -76,13 +108,13 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
             </button>
 
             <div
-                className='bg-gray-200 rounded-2xl overflow-hidden gap-10 flex text-black  justify-center w-[80%] p-5 items-center   md:justify-center'
+                className='bg-black/90 rounded-2xl overflow-hidden gap-10 flex text-white/70  justify-center w-[80%] p-5 items-center   md:justify-center'
                 onClick={(e) => e.stopPropagation()}
             >
 
 
                 <div
-                    className='w-[50%]  overflow-hidden rounded-2xl    justify-center'
+                    className='w-[50%]  bg-transparent overflow-hidden rounded-2xl    justify-center'
                 >
                     <img
                         src={postDetails.postUrl || postDetails.fileName}
@@ -92,7 +124,7 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
                 </div>
 
                 <div
-                    className=' bg-inherit flex gap-3 flex-col justify-evenly h-full  w-[50%]'
+                    className=' bg-transparent flex gap-3 flex-col justify-evenly h-full  w-[50%]'
                 >
                     <div className='flex items-center gap-5 bg-inherit justify-between'>
                         <div className='flex items-center gap-5 bg-inherit'>
@@ -105,8 +137,23 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
 
 
                     </div>
-                    <div className='bg-gray-300 rounded-lg aspect-square  '>
+                    <div className='bg-transparent h-[99%] text-base backdrop-blur-md rounded-lg aspect-square p-1 flex flex-col  shadow-lg '>
+                        <div
+                            className='p-4 flex flex-col gap-5 overflow-y-auto thin-scrollbar flex-1'
+                        >
+                            {comments.map(comment => (
+                                <SingleComment commentDetails={comment} key={comment._id} />
+                            ))}
+                        </div>
+                        <form
+                            className='mt-auto flex gap-2 px-2 py-1 items-center'
+                            onSubmit={handleSubmit}
+                        >
+                            <input type="text" name="comment" id="" placeholder='Add a comment'
+                                className='bg-white/50 backdrop-blur-lg border border-white/30 shadow-lg text-black rounded-lg p-2 px-6 placeholder-black/60 outline-none w-full h-10 text-base' />
 
+                            <button type="submit"><Send /></button>
+                        </form>
                     </div>
 
                     <PostInteraction
@@ -114,10 +161,11 @@ function PostModal({ isOpen, onClose, postDetails, setPostDetails, isArchive, ac
                         postId={postDetails._id}
                         initialLikedByUser={postDetails.likedByUser}
                         isSavedByUser={postDetails.isSavedByUser}
+                        commentCount={postDetails.commentCount}
                         likedCount={postDetails.likedCount}
                         key={postDetails._id}
                         disabled={isArchive}
-
+                        shareCount={postDetails.shareCount}
                     />
                     <h1>
                         <span
