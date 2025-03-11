@@ -1,4 +1,4 @@
-import {  lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './Pages/User/Home'
@@ -31,7 +31,7 @@ import UpdatePage from './Pages/UpdatePage'
 
 const Register = lazy(() => import('./Pages/User/Register'));
 const PersonalInformtion = lazy(() => import('./Pages/User/PersonalInformtion'));
-const StreamingPage = lazy(() => import ('./Pages/User/StreamingPage'));
+const StreamingPage = lazy(() => import('./Pages/User/StreamingPage'));
 
 function App() {
 
@@ -60,11 +60,11 @@ function App() {
               {/* <Route path='stream' element={<BroadcasterPage/>} /> */}
               <Route path='message' element={
                 <ChatProvider>
-                  <MessagePage/>
+                  <MessagePage />
                 </ChatProvider>
-                } />
-              
-              <Route path='/:username' element ={<UserProfile isCurrentUser={false}/>} />
+              } />
+
+              <Route path='/:username' element={<UserProfile isCurrentUser={false} />} />
               <Route path='settings'   >
                 <Route index element={<Navigate to="edit-profile" replace />} />
                 <Route path='edit-profile' element={<Settings />} />
@@ -72,7 +72,7 @@ function App() {
                 <Route path='archive' element={<Archive />} />
                 <Route path='*' element={<UpdatePage />} />
               </Route>
-              <Route path ='favourites' element = { <Favourites/> } />
+              <Route path='favourites' element={<Favourites />} />
             </Route>
             <Route path='/admin'>
               <Route index element={<AdminLogin />} replace />
@@ -81,10 +81,10 @@ function App() {
               <Route path='dashboard' element={<AdminHome />} />
               <Route path='users' element={<AdminUsersList />} />
               <Route path='posts' element={<AdminPosts />} />
-              <Route path='reports' element={<AdminReport/>} />
+              <Route path='reports' element={<AdminReport />} />
             </Route>
+            <Route path='*' element={<div>Not Found</div>} />
           </Routes>
-          <Route path='*' element={<div>Not Found</div>} />
         </Router>
       </Suspense>
 
