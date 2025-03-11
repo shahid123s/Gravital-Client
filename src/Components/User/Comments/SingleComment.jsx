@@ -4,7 +4,6 @@ import LikedButton from '../../../assets/LikedButton.svg';
 
 function SingleComment({commentDetails}) {
 
-    console.log(commentDetails, 'commentDetails');
   return (
     <div className = 'flex gap-3 bg-transparent text-base items-center '>
       <img 

@@ -42,14 +42,12 @@ function AdminTableComponent({
 
   const handleAction = async (action, dataId) => {
     try {
-      console.log(dataId)
       if (action === 'View Details') {
         const reportDetails = await adminAxiosInstance.get('/report', {
           params: {
             reportId: dataId
           }
         })
-        console.log(reportDetails)
         setDataDetails(reportDetails.data.reports)
         setReportModal(true)
         return

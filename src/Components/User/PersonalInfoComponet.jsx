@@ -16,7 +16,6 @@ function PersonalInfoComponet() {
     })
 
     useEffect(() => {
-      console.log(location)
       if(location.state?.from != 'otp'){
         navigate('/login')
       }
@@ -25,7 +24,6 @@ function PersonalInfoComponet() {
     const handleChange = (event) => {
         const {value, name} = event.target;
         setUserData({...userData, [name] : value});
-        console.log(userData)
     }
 
     const handleSubmit = async (event) => {
@@ -33,12 +31,10 @@ function PersonalInfoComponet() {
         const validateError = validate(userData);
         setValidatedError(validateError)
         if(Object.keys(validateError).length === 0){
-            console.log('okay aanu mone');
             const response = await axiosInstance.post('/auth/register', userData);
             toast.success(response?.data?.message);
             navigate('/login')
         }
-        console.log(validatedError)
     }
 
 

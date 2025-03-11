@@ -40,19 +40,16 @@ function LoginComponent({ isAdmin }) {
                 dispatch(adminLogin(formData))
                 .unwrap()
                 .then(res => {
-                    console.log(res);
                     toast.success('Admin Login Successfully');
                     navigate('/admin/home');
                 })                
                 .catch(err => {
-                    console.log(err)
                     toast.error(err)
                 })
             } else {
                 dispatch(login(formData))
                     .unwrap()
                     .then((res) => {
-                        // console.log(res);
                         toast.success("Login Successfully")
                         navigate('/home')
                     })
@@ -61,7 +58,6 @@ function LoginComponent({ isAdmin }) {
                     })
             }
         } catch (error) {
-            console.log(error, 'ooi')
         }
     }
 

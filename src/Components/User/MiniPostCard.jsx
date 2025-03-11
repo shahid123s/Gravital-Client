@@ -1,9 +1,7 @@
 import React from 'react'
 import { toast } from 'sonner'
 function MiniPostCard({post, setIsModalOpen, setPostData}) {
-console.log(
-  post
-)
+  
   const handleClick = () => {
       setIsModalOpen(true)
       setPostData(post

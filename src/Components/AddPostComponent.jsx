@@ -21,7 +21,6 @@ function AddPostComponent({ profileImage }) {
 
 
 
-  // console.log(profileImage)
 
 
 
@@ -53,20 +52,16 @@ function AddPostComponent({ profileImage }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log("Selected file:", file);
       setImage(URL.createObjectURL(file));
       setIsCrop(true)
-      console.log(typeof (URL.createObjectURL(file)))
     }
   };
 
   // const handleUpload = async () => {
   //   if (image && croppedAreaPixels) {
   //     const croppedImage = await getCroppedImg(image, croppedAreaPixels); // Call the utility to get the cropped image
-  //     console.log(croppedImage); // This is the base64 data or blob, depending on your implementation of getCroppedImg
   //     // You can then send this croppedImage to your backend
   //   }
-  //   console.log(image)
 
   // }
 
@@ -83,7 +78,6 @@ function AddPostComponent({ profileImage }) {
     setLoading(true)
     event.preventDefault();
 
-    console.log(croppedImage, caption)
     try {
       const blob = croppedImage.postBlob;
 
@@ -94,7 +88,6 @@ function AddPostComponent({ profileImage }) {
       formData.append('post', blob);
       formData.append('caption', caption);
 
-      console.log(formData)
       const resposne = await axiosInstance.post('/post/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -102,7 +95,6 @@ function AddPostComponent({ profileImage }) {
         timeout: 300000,
       })
       if (resposne) {
-        console.log(resposne);
         toast.success(resposne.data.message)
         setLoading(false)
         setImage('');

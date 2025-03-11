@@ -13,7 +13,6 @@ function Trending() {
     useEffect(() => {
         const fetchPost = async () => {
             const response = await axiosInstance.get('/post/get-trending')
-            console.log(response.data.posts)
             setPosts(response.data.posts)
         }
         fetchPost()

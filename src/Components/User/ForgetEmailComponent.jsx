@@ -8,7 +8,6 @@ function ForgetEmailComponent() {
 
     const handleChange = (event) => {
         setEmail(event.target.value)
-        console.log(email)
     }
 
     const handleSubmit =async (event) => {
@@ -16,7 +15,6 @@ function ForgetEmailComponent() {
        const response = await axiosInstance.post('/auth/user/sent-otp/forget-password', {email});
        const expireTime = Date.now() + 2 * 60 * 1000 ;
         navigate('/otp-verification' ,{state :{expireTime, email, isResetPassword: true, from: 'reset-password'}})
-       console.log(response)
     }
     return (
         <div className="pb-5 flex flex-col sm:p-2 sm:w-96 md:w-96 md:p-8 items-center gap-5 rounded-lg justify-center bg-[#f9f9f9] ">

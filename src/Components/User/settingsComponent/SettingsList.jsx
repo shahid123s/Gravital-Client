@@ -17,7 +17,7 @@ function SettingsList() {
     const handleChange = (event) => {
         const { value } = event.target;
         setSearch(value);
-        console.log(search)
+
     }
 
 

@@ -2,8 +2,6 @@ import React from 'react'
 
 function FollowerList({ followerList = [], createChat, onClose }) {
 
-    console.log(followerList)
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
     onClick={onClose}

@@ -20,7 +20,6 @@ function Content({profileImage}) {
     const handleScroll = () => {
       if(window.innerHeight + document.documentElement. scrollTop >= document.documentElement.offsetHeight - 600){
         loadMore();
-        console.log('thudangi')
       }
     }
 

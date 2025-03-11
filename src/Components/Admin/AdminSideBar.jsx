@@ -23,7 +23,6 @@ function AdminSideBar() {
     dispatch(adminLogout())
     .unwrap()
     .then((res) => {
-      console.log(res);
       toast.success(res.message);
       navigate('/admin/login');
     })

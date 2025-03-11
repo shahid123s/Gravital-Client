@@ -21,7 +21,7 @@ function AdminPosts() {
       const response  = await adminAxiosInstance.get('/posts',{
         params: {page: currentPage, limit, search},
       })
-      console.log(response)
+
       if(response.data.totalPages < currentPage){
         setCurrentPage(1)
       }

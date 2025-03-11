@@ -14,18 +14,15 @@ function ForgetPasswordComponent() {
     const [error, setError] = useState(null);
 
     useEffect(() =>{
-        console.log(location.state);
         
         if(!location.state || location.state.from !== 'otp'){
             navigate('/login', {replace: true})
-            console.log('okay', location.state)
         }
     },[navigate])
 
     const handleChange = (event) => {
         const {name, value} = event.target;
         setPassword({...passwords, [name]: value});
-        console.log(passwords)
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -35,12 +32,10 @@ function ForgetPasswordComponent() {
         else{
             setError(null)
             try {
-                console.log('vanna')
                 const response = await axiosInstance.post('/auth/user/reset-password', passwords);
                 toast.success(response.data?.message);
                 navigate('/login')
             } catch (error) {
-                console.log(error?.response?.data?.message);
                 toast.error(error?.response?.data?.message, {
                     position: 'top-left',
                     closeOnClick: true,

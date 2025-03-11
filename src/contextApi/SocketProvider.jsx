@@ -16,7 +16,6 @@ const socket = io(import.meta.env.VITE_SOCKET_URL, {
     }
 });
 
-console.log(username)
 function SocketProvider({ children }) {
     socket.on("connect", () => console.log("Socket connected:", socket.id));
     socket.emit('createOnlineUser', {username})

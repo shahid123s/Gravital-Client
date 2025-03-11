@@ -47,8 +47,6 @@ axiosInstance.interceptors.response.use(
                     return Promise.reject(error); // Return error if refresh failed
                 }
             } catch (refreshError) {
-                console.log('okay');
-
                 // If refresh fails, log out user and reject the error
                 store.dispatch(logout());
                 return Promise.reject(refreshError);
@@ -80,10 +78,8 @@ adminAxiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-        console.log(error.response)
         if(error.response && error.response.status === 401 && error.response.data.message == 'AccessToken Required' && !originalRequest._retry) {
             originalRequest._retry = true; 
-            console.log('oho')
 
             try {
                 const resultAction = await store.dispatch(refreshAdminToken());
@@ -97,8 +93,6 @@ adminAxiosInstance.interceptors.response.use(
                     return Promise.reject(error);
                 }
             } catch (refreshError) {
-                console.log('admin interceptor error');
-                console.log(refreshError)
                 store.dispatch(adminLogout());
                 return Promise.reject(refreshError)
             }

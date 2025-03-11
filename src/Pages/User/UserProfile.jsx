@@ -22,7 +22,7 @@ function UserProfile() {
     if(username === Cookies.get('username')){
       return navigate('/profile', replace)
     } 
-    console.log(username, 'username')
+
     const  fetchPost =async () => {
       setLoading(true)
       setPostDetails([])
@@ -32,7 +32,6 @@ function UserProfile() {
         }
       });
       setLoading(false)
-       console.log(response.data, 'ithaa vanna')
        setPostDetails(response.data.posts)
     }
 

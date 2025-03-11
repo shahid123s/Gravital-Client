@@ -65,10 +65,8 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
     }
 
     const navigate = useNavigate()
-    console.log(userDetails)
     const handleEdith = async (event) => {
         if (username) {
-            console.log(userDetails._id)
             toggleFollow(userDetails._id)
         }
         else {
@@ -84,19 +82,16 @@ function UserDetailsDisplay({ userDetails, loading, username }) {
 
     const handleActionModal = async (title) => {
         setIsModalOpen(false);
-        // console.log(title, 'ivda')
         if (title === 'About this Account') {
             try {
                 const response = await axiosInstance.get('/user/about-profile', {
                     params: { username: userDetails.username }
                 })
-                console.log(typeof response.data.user, 'this reponse')
                 setActionContext(response.data.user)
                 setActionModal(title);
             } catch (error) {
-
+                toast.error(error.message)
             }
-            console.log(actionContext, 'ee myr evda')
             return
 
         }

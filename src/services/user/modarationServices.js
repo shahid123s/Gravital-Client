@@ -54,6 +54,5 @@ export const reportPost = async (postId, userId, message) => {
         userId,
         message,
     })
-    console.log('vanna')
 
 }

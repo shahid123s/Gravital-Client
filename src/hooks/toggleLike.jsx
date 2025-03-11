@@ -16,7 +16,7 @@ const useLike = (initialLikes, initialLikedByUser, postId) => {
 
         try {
            const response =  await axiosInstance.patch('/like/post/toggle-like/', {postId});
-           console.log(response)
+
         } catch (error) {
             toast.error(error.message);
             setLikedByUser(previousState);

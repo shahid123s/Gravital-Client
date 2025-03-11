@@ -13,7 +13,7 @@ function Suggestion({userDetails}) {
      const response = await axiosInstance.get('/user/suggest-users');
     setSuggestionList(response.data.usersList);
     setLoading(false)
-     console.log(response, 'vannilleeeee')
+
     }
     fetchSuggestion()
    },[])

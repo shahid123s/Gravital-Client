@@ -13,7 +13,6 @@ export const sendComment = async (postId, comment) => {
         return response.data;
     } catch (error) {
         toast.error('Failed to send comment');
-        console.log('Error in sendComment', error);
     }
 }
 
@@ -30,10 +29,8 @@ export const getComments = async (postId) => {
                 }
             }
         );
-        console.log(response.data.data)
         return response.data.data;
     } catch (error) {
         toast.error('Failed to get comments');
-        console.log('Error in getComments', error);
     }
 }

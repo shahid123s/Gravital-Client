@@ -9,7 +9,6 @@ function ActionButton({ buttonColor, title, handleAction, isDisabled, actionId})
     : buttonColor === 'green'
     ? 'bg-lime-600' : 'bg-[#4A90E2]';
     
-    console.log(color)
 
     return (
         <button

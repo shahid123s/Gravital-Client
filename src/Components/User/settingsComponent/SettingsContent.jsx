@@ -31,7 +31,6 @@ function SettingsContent() {
 
     const handleChange = (event) => {
         setIsChanged(true);
-        console.log(event.target.files)
         const file = event.target?.files ? event.target.files[0] : null;
         const value = event.target.value;
 
@@ -50,7 +49,6 @@ function SettingsContent() {
 
                 setImageUrl(imgUrl);
                 setImageCrop(true);
-                console.log('Opening crop modal');
             };
 
             img.src = imgUrl;
@@ -66,7 +64,6 @@ function SettingsContent() {
         setIsChanged(true)
         if (gender === 'male') {
             setUserDetails({ ...userDetails, gender: 'Male' })
-            console.log('vanna')
         }
         else {
             setUserDetails({ ...userDetails, gender: 'Female' })
@@ -84,7 +81,7 @@ function SettingsContent() {
     const handleSubmit = async (event) => {
         setLoading(true);
         event.preventDefault();
-        console.log(userDetails);
+
 
         const blob = userDetails.profileImageBlob;
 

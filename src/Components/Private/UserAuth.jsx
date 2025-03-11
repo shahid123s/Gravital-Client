@@ -5,9 +5,7 @@ import { Navigate } from "react-router-dom"
 
 export const UserAuth = ({children}) => {
     const {isAuthenticate} = useSelector(state => state.userAuth)
-    useEffect(() => {
-        console.log(isAuthenticate)
-    },[])
+    
     if(!isAuthenticate){
         return (<Navigate to={'/'} />)
     }

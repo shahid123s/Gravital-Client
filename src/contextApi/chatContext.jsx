@@ -35,7 +35,6 @@ export const ChatProvider = ({ children }) => {
 
     useEffect(() => {
         if (messages.length > lastMessageCount) {
-            console.log("New message received:", messages[messages.length - 1]);
             setLastMessageCount(messages.length);
         }
     }, [messages])
@@ -43,7 +42,6 @@ export const ChatProvider = ({ children }) => {
     const fetchChatList = async () => {
         const chatListResponse = await axiosInstance.get('/chat');
         setChatList(chatListResponse.data.chatList);
-        console.log(chatListResponse.data.chatList)
     };
 
 
@@ -52,9 +50,8 @@ export const ChatProvider = ({ children }) => {
         if(!socket) return; 
         // socket.connect();
         setSocket(providedSocket?.socket);  
-        console.log(socket, 'socket')   
-        // socket.on("connect", () => console.log("Socket connected:", socket.id));
-        // socket.on("disconnect", () => console.log("Socket disconnected"));
+
+       
 
         // ✅ Listen for new messages in real time
         socket.on("receiveMessage", (msg) => {
@@ -91,7 +88,6 @@ export const ChatProvider = ({ children }) => {
 
     /** Fetch messages for a conversation */
     const handleClick = async (conversationId, chatDetails) => {
-        console.log("Joining room:", conversationId);
         setchatDetails(chatDetails)
         socket.emit('joinRoom', conversationId);
 
@@ -111,7 +107,6 @@ export const ChatProvider = ({ children }) => {
         const response = await axiosInstance.post('/chat', {
             userId,
         });
-        console.log(response.data, 'ivda');
         fetchChatList();
         
         setClose()
@@ -139,7 +134,6 @@ export const ChatProvider = ({ children }) => {
     };
 
     const handleModel = async () => {
-        console.log('clicked')
         const response = await axiosInstance.get('/follow/followings');
         setFollowList(response.data.followList);
         setIsOpen(true);

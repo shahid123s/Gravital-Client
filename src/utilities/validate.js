@@ -3,8 +3,6 @@
 const validate = (data) => {
     const errors = {};
 
-    console.log(data)
-
     if (data?.fullName) {
         // Name validation (alphabets only, no spaces)
         const nameRegex = /^[A-Za-z\s]{3,}$/;

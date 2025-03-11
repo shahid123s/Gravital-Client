@@ -9,7 +9,8 @@ import OPTION_HEADER from '../../enum/optionHeader';
 function UserPosts({ postDetails, loading, userDetails, isCurrentUser }) {
   const [isOpenModal, setIsModalOpen] = useState(false)
   const [postData, setPostData] = useState(null)
-  console.log(isCurrentUser)
+
+  
   return (
     <div className='bg-inherit text-lg text-white p-1 flex flex-col font-poppins justify-center items-center gap-10'>
       {!loading && <div className='bg-inherit flex gap-32 flex-wrap'>

@@ -17,7 +17,6 @@ function Otpverfication() {
     });
     const expireTime = location.state?.expireTime 
     useEffect(()=> {
-        console.log(location)
         if(!location.state?.from){
             navigate('/login')
         }
@@ -44,7 +43,6 @@ function Otpverfication() {
 
     const handleChange = (event) => {
         const {name, value} = event.target;
-        console.log(value,data)
         setData({...data, [name] : value });
     }
     const handleSubmit = async (event) => {
@@ -58,7 +56,6 @@ function Otpverfication() {
           else{
             response = await axiosInstance.post('/auth/otp-verification', data)
           }
-            console.log(response.data)
             toast.success(response?.data?.message,{
                 position: 'top-left',
                 closeOnClick: true,
@@ -71,7 +68,6 @@ function Otpverfication() {
                   navigate('/register/personal-info', {state : {data, from: 'otp'}})
               }
         } catch (error) {
-            console.log(error);
             toast.warning(error?.response?.data?.message,{
                 position: 'top-left',
                 closeOnClick: true,

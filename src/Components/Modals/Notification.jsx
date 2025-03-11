@@ -8,7 +8,7 @@ function Notification({isOpen}) {
 
     useEffect(() => {
         socket.on('receiveNotification', (notification) => {
-            console.log('Recived Notification', notification);
+            console.log('Recived Notification');
             setNotification((prev) => [notification, ...prev]);
         })
 

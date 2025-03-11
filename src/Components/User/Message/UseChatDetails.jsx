@@ -6,7 +6,6 @@ import { useChat } from '../../../contextApi/chatContext'
 function UseChatDetails({userDetail}) {
     const {handleClick} = useChat()
     const [isReaded, setIsReaded] = useState(false);
-    console.log(userDetail)
     return (
         <div className='flex cursor-pointer  rounded-lg w-60 overflow-hidden items-center  justify-between p-1' onClick={() =>handleClick(userDetail._id, {profileImage: userDetail.profileImage, fullName: userDetail.chatName})} >
             <div className='  rounded-sm  p-r-3 overflow-hidden flex gap-3  ' >

@@ -19,13 +19,11 @@ export function PostInteraction({ likedCount, initialLikedByUser, postId, isSave
     const toggleSavePost = async (postId) => {
         setIsSaved(!isSaved);
         const response = await axiosInstance.patch('/save/post', { postId });
-        console.log(response);
 
     }
 
     const hanldeShare = async () => {
         const response = await axiosInstance.patch('/post/share', { postId });
-        console.log(response.data.data);
         await navigator.clipboard.writeText(response.data.data)
         setShare(prev => prev + 1)
         toast.success('Link copied to clipboard')

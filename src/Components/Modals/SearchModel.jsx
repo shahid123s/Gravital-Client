@@ -11,9 +11,7 @@ function SeachModel({ isOpen }) {
             params: {
                 username: event.target.value
             }   
-        });
-
-        console.log(response.data.usersList);  
+        }); 
         setUserList(response.data.usersList);
     }
 
