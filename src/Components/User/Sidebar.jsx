@@ -15,10 +15,13 @@ import SettingsLogo from '../../assets/settings.svg';
 import UserLogo from '../../assets/user.svg';
 import SidebarLinks from '../SidebarLinks';
 import SeachModel from '../Modals/SearchModel';
+import Notification from '../Modals/Notification';
+import SocketProvider from '../../contextApi/SocketProvider';
 
 function Sidebar() {
   const [isClicked, setIsClicked] = useState(false);
   const [isOpenSearch, setIsOpenSearch] = useState(false);
+  const [isOpenNotification, setIsOpenNotification] = useState(false);
   const dropdownRef = useRef(null);
   const moreButtonRef = useRef(null);
   useEffect(() => {
@@ -41,8 +44,9 @@ function Sidebar() {
     isClicked ? setIsClicked(false) : setIsClicked(true);
   }
 
-  const closeModel = () => {
-    setIsOpenSearch(prev => !prev);
+  const closeModel = (search = true) => {
+    search?setIsOpenSearch(prev => !prev): setIsOpenNotification(prev => !prev)
+
   }
 
   return (
@@ -55,7 +59,7 @@ function Sidebar() {
           <SidebarLinks logo={SearchLogo} name={'Search'} setClose={closeModel} />
           <SidebarLinks logo={LiveLogo} name={'Live'} />
           <SidebarLinks logo={MessageLogo} name={'Message'} />
-          <SidebarLinks logo={NotificationLogo} name={'Notification'} />
+          <SidebarLinks logo={NotificationLogo} name={'Notification'} setClose={closeModel} />
           <SidebarLinks logo={UserLogo} name={'Profile'} />
         </div>
         {<div ref={dropdownRef} className={`${isClicked ? 'opacity-100 translate-x-0' : 'opacity-0 invisible -translate-x-full'
@@ -72,6 +76,9 @@ function Sidebar() {
         <button ref={moreButtonRef} className='mt-auto mb-5  w-1/6 gap-2 flex justify-end items-center' onClick={handleClick}><img src={MoreLogo} /><span className='text-white text-md font-medium  '>More</span></button>
       </div>
       <SeachModel isOpen={isOpenSearch} />
+      <SocketProvider>
+      <Notification isOpen={isOpenNotification} />
+      </SocketProvider>
     </>
 
   )

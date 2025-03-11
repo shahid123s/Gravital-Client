@@ -23,7 +23,7 @@ function PostCard({ postDetails }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const isUsers = Cookies.get('username') === postDetails.userId.username ? true : false;
 
-    console.log(postDetails)
+
 
 
     const loadImage = () => {
@@ -39,17 +39,14 @@ function PostCard({ postDetails }) {
         setIsOptionModalOpen(false)
         if (title === 'About this Account') {
             try {
-                console.log(postDetails)
                 const response = await axiosInstance.get('/user/about-profile', {
                     params: { username: postDetails.userId.username }
                 })
-                console.log(typeof response.data.user, 'this reponse')
                 setActionContext(response.data.user)
                 setActionModal(title);
             } catch (error) {
 
             }
-            console.log(actionContext)
             return
 
         }

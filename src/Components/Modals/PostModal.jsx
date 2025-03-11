@@ -28,14 +28,13 @@ function PostModal({ isOpen, onClose, postDetails, isArchive, actionHeader }) {
         }
         fetchComments();
        
-    }, postDetails)
+    }, [postDetails])
 
     const handleOptionModal = () => {
         setIsOptionModalOpen(true)
     }
 
     const handleOption = async (title) => {
-        console.log(postDetails)
         if (title === 'About this Account') {
             const response = await axiosInstance.get('/user/about-profile', {
                 params: { username: postDetails.userId.username }
@@ -82,8 +81,6 @@ function PostModal({ isOpen, onClose, postDetails, isArchive, actionHeader }) {
             comment: e.target.comment.value,
         }
 
-        console.log(comment)
-
         if (!comment) return;
         await sendComment(postId, comment.comment);
         setComments(prev => [comment, ...prev]);
@@ -92,7 +89,7 @@ function PostModal({ isOpen, onClose, postDetails, isArchive, actionHeader }) {
     }
 
 
-    console.log(postDetails)
+
     if (!isOpen) return null;
 
     return (

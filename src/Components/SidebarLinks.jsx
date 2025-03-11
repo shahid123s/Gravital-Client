@@ -32,9 +32,9 @@ function SidebarLinks({ logo, name, isAdmin, textColor, textSize, username, setC
 
     }
 
-    else if (name === 'Search') {
+    else if (name === 'Search' || name === 'Notification') {
       console.log("clicked search")
-      setClose();
+      name === 'Search' ? setClose(true) : setClose(false);
     }
    
     else {
