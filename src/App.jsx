@@ -25,6 +25,7 @@ import SeachPage from './Components/Modals/SearchModel'
 import Trending from './Pages/User/Trending'
 import PostCard from './Components/PostCard'
 import PostPage from './Pages/User/PostPage'
+import UpdatePage from './Pages/UpdatePage'
 // import StreamingPage from './Pages/User/StreamingPage'
 
 
@@ -69,6 +70,7 @@ function App() {
                 <Route path='edit-profile' element={<Settings />} />
                 <Route path='account-privacy' element={<Settings />} />
                 <Route path='archive' element={<Archive />} />
+                <Route path='*' element={<UpdatePage />} />
               </Route>
               <Route path ='favourites' element = { <Favourites/> } />
             </Route>
@@ -82,6 +84,7 @@ function App() {
               <Route path='reports' element={<AdminReport/>} />
             </Route>
           </Routes>
+          <Route path='*' element={<div>Not Found</div>} />
         </Router>
       </Suspense>
 
