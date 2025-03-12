@@ -10,11 +10,14 @@ const useInfiniteScroll = (fetchData, dependencies = [], delay = 30, params= {})
 
     // Core loadMore logic
     const loadMoreCore = useCallback(async () => {
-        if (!hasMore || isLoading) {
+        if (!hasMore ) {
             toast.success('Post Are done')
-
             return;
         }
+        
+        if(isLoading){
+            return;
+        }   
 
         setIsLoading(true);
 
