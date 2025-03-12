@@ -96,7 +96,7 @@ function LoginComponent({ isAdmin }) {
                             id="password"
                             onChange={handleChange}
                             placeholder="Enter your password"
-                            className="w-full rounded-md px-3 py-2 border border-black pr-10"
+                            className="w-full rounded-md px-3 py-2 border-1 border-black pr-10"
                         />
                         {/* Eye Icon */}
                         <button
