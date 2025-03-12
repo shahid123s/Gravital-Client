@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import Spinner from '../LoadingSpinner'
 
 function Otpverfication() {
+
     const [timeLeft, setTimeLeft] = useState(0);
     const location = useLocation()
     const navigate = useNavigate()
@@ -20,6 +21,7 @@ function Otpverfication() {
         if(!location.state?.from){
             navigate('/login')
         }
+
     },[])
 
     useEffect(() => {
@@ -103,7 +105,7 @@ function Otpverfication() {
                 <div className='flex flex-col  gap-5 w-full'>
                     <label htmlFor="username"
                         className='text-[#99775C] text-md font-light '
-                    >Please Enter the OTP send to the email. shah*********s@gmail.com</label>
+                    >Please Enter the OTP send to the email. {data.email}</label>
                     <input
                         type="number"
                         name="otp"
