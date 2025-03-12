@@ -31,9 +31,14 @@ function PersonalInfoComponet() {
         const validateError = validate(userData);
         setValidatedError(validateError)
         if(Object.keys(validateError).length === 0){
+          try {
             const response = await axiosInstance.post('/auth/register', userData);
             toast.success(response?.data?.message);
             navigate('/login')
+          } catch (error) {
+            toast.error("Something went wrong")
+            navigate('/register')
+          }
         }
     }
 
