@@ -11,7 +11,7 @@ createRoot(document.getElementById('root')).render(
   // <StrictMode >
     <Provider store={store} >
     <Toaster  position='bottom-center' toastOptions={{
-      className: 'border-none bg-[#828282] text-[#D4AF37] aling-center'
+      className: 'border-none bg-[#828282] text-white aling-center'
     }}  />
     <App />
     </Provider>
