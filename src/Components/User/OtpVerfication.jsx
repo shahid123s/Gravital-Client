@@ -22,6 +22,7 @@ function Otpverfication() {
             navigate('/login')
         }
 
+
     },[])
 
     useEffect(() => {
@@ -79,6 +80,12 @@ function Otpverfication() {
         }
     }
 
+    const maskingEmail = (email) => {
+        const [username, domain] = email.split('@');
+        const maskedUsername = username.slice(0, 3) + '***' + username.slice(-2);
+        return `${maskedUsername}@${domain}`;
+    }
+
     const handleResend = async(event) => {
         event.preventDefault();
         try {
@@ -105,7 +112,7 @@ function Otpverfication() {
                 <div className='flex flex-col  gap-5 w-full'>
                     <label htmlFor="username"
                         className='text-[#99775C] text-md font-light '
-                    >Please Enter the OTP send to the email. {data.email}</label>
+                    >Please Enter the OTP send to the email. <span className='text-[#4A90E2]'> {maskingEmail(data.email)} </span> </label>
                     <input
                         type="number"
                         name="otp"
