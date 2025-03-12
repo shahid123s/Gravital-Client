@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import ProfilePic from '../../assets/image.png'
-import { axiosInstance } from '../../utilities/axios'
 import { Link } from 'react-router-dom'
 import useFollow from '../../hooks/toggleFollow'
 

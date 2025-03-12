@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import ProfilePic from '../../assets/image.png'
 import SuggestedUserCard from './SuggestedUserCard'
 import Footer from '../Footer'
-import useFetchUserData from '../../hooks/fetchUserDetail'
 import { axiosInstance } from '../../utilities/axios'
 function Suggestion({userDetails}) {
 
