@@ -82,7 +82,8 @@ function Otpverfication() {
 
     const maskingEmail = (email) => {
         const [username, domain] = email.split('@');
-        const maskedUsername = username.slice(0, 3) + '***' + username.slice(-2);
+        const remainLenght = username.length - 3;
+        const maskedUsername = username.slice(0, 3) + '*'.repeat(remainLenght);
         return `${maskedUsername}@${domain}`;
     }
 
