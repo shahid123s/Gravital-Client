@@ -7,14 +7,18 @@ const useInfiniteScroll = (fetchData, dependencies = [], delay = 30, params= {})
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const hasShownToast = useRef(false);
 
     // Core loadMore logic
     const loadMoreCore = useCallback(async () => {
         if (!hasMore ) {
-            toast.success('Post Are done')
+            if(hasShownToast.current) {
+                toast.success('Post Are done')
+                hasShownToast.current = true;
+            }
             return;
         }
-        
+
         if(isLoading){
             return;
         }   
@@ -26,6 +30,10 @@ const useInfiniteScroll = (fetchData, dependencies = [], delay = 30, params= {})
             setData((prevData) => [...prevData, ...result.data]); // Append data
             setHasMore(result.hasMore);
             setPage((prev) => prev + 1); // Increment page
+
+            if(result.hasMore){
+                hasShownToast.current = false;
+            }
         } catch (error) {
             console.error("Error fetching data", error);
             toast.error(error.message);
