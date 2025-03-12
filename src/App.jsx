@@ -84,7 +84,7 @@ function App() {
               <Route path='reports' element={<AdminReport />} />
             </Route>
             <Route path='*' element={<div>Not Found</div>} />
-            <Route path='/not-found' element={<div>Not Found</div>} />
+            <Route path='/not-found' element={<Navigate to={<div>Not Found</div>}  replace/> } />
           </Routes>
         </Router>
       </Suspense>

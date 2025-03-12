@@ -13,6 +13,7 @@ const socket = io(import.meta.env.VITE_SOCKET_URL, {
     autoConnect: false, // Prevents auto-connect on mount
     auth: {
         username,
+        
     }
 });
 

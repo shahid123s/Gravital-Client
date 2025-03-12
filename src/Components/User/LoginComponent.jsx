@@ -4,11 +4,13 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../app/feature/userSlice";
 import { adminLogin } from "../../app/feature/adminSlice";
+import { Eye, EyeOff } from "lucide-react";
 
 
 
 function LoginComponent({ isAdmin }) {
     const [tilte, setTilte] = useState('LOGIN')
+    const [passwordVisible, setPasswordVisible] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -87,15 +89,24 @@ function LoginComponent({ isAdmin }) {
                     <label htmlFor="username"
                         className='text-[#99775C] font-medium text-lg'
                     >Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        onChange={handleChange}
-                        placeholder='Value'
-                        className='w-76 rounded-md px-3 py-2  border-1 border-black'
-
-                    />
+                    <div className="relative w-full">
+                        <input
+                            type={passwordVisible ? "text" : "password"}
+                            name="password"
+                            id="password"
+                            onChange={handleChange}
+                            placeholder="Enter your password"
+                            className="w-full rounded-md px-3 py-2 border border-black pr-10"
+                        />
+                        {/* Eye Icon */}
+                        <button
+                            type="button"
+                            onClick={() => setPasswordVisible(!passwordVisible)}
+                            className="absolute right-3 top-3 text-gray-600"
+                        >
+                            {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                    </div>
                 </div>
 
 
