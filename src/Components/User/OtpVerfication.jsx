@@ -130,7 +130,7 @@ function Otpverfication() {
             {timeLeft!== 0 &&  <p className='text-red-500'>{formatTimeLeft(timeLeft)}</p>}
             {!timeLeft && <Link className='text-[#99775C] cursor-pointer hover:underline'onClick={handleResend} >Resent OTP</Link>}
             {!location.state?.isResetPassword&&<Link className='text-[#99775C] cursor-pointer hover:underline' to={'/register'}>Change your Email</Link>}
-            <p>If you didn’t see the message, please check your spam folder.</p>
+            <p className='text-sm font-light text-[#828282]'>If you didn’t see the message, please check your spam folder.</p>
         </div>
     )
 }
