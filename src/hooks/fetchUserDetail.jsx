@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { axiosInstance } from '../utilities/axios';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchUserData = (username) => {
+  const navigate = useNavigate()
   const [userDetails, setUserDetails] = useState({
     profileImage: '',
     bio: '',
@@ -22,7 +24,8 @@ const useFetchUserData = (username) => {
       setLoading(false);
     } catch (err) {
       setError(err.message || 'Error fetching user data');
-      toast.error(err.message || 'Error fetching user data');
+      toast.error('User Not Found'|| 'Error fetching user data');
+      navigate('/not-found')
       setLoading(false);
     }
   };

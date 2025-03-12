@@ -88,9 +88,9 @@ function LoginComponent({ isAdmin }) {
                         className='text-[#99775C] font-medium text-lg'
                     >Password</label>
                     <input
-                        type="text"
+                        type="password"
                         name="password"
-                        id="username"
+                        id="password"
                         onChange={handleChange}
                         placeholder='Value'
                         className='w-76 rounded-md px-3 py-2  border-1 border-black'

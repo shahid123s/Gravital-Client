@@ -75,7 +75,7 @@ function App() {
               <Route path='favourites' element={<Favourites />} />
             </Route>
             <Route path='/admin'>
-              <Route index element={<AdminLogin />} replace />
+              <Route index element={<AdminLogin />}  />
               <Route path='login' element={<AdminLogin />} />
               <Route path='home' element={<Navigate to={'/admin/dashboard'} replace />} />
               <Route path='dashboard' element={<AdminHome />} />
