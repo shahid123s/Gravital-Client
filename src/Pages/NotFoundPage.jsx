@@ -1,4 +1,6 @@
 import React from 'react'
+import SiteLogo from '../assets/gravityLogo.png'
+
 
 function NotFoundPage() {
   return (
