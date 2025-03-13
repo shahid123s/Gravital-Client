@@ -13,7 +13,7 @@ function Home() {
 
    return (
       <UserAuth>
-         <div className=' min-h-full flex '>
+         <div className=' h-full flex '>
 
             <SocketProvider>
                <Sidebar />
