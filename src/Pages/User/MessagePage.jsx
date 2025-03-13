@@ -20,7 +20,6 @@ function MessagePage() {
     return (
         <UserAuth>
             <Sidebar />
-            <SocketProvider >
 
                 <ChatProvider>
 
@@ -34,7 +33,6 @@ function MessagePage() {
                     <UserListModal isOpen={isOpen} users={followingList} onClose={setClose} />
 
                 </ChatProvider>
-            </SocketProvider>
 
         </UserAuth>
     )

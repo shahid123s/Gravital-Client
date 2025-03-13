@@ -15,9 +15,7 @@ function Home() {
       <UserAuth>
          <div className=' h-full flex '>
 
-            <SocketProvider>
                <Sidebar />
-            </SocketProvider>
             <div className='flex justify-evenly w-full bg-[#121212]'>
                <Content profileImage={userDetails.profileImage} />
                <Suggestion userDetails={userDetails} />

@@ -5,6 +5,7 @@ import './index.css'
 import {Toaster} from 'sonner'
 import { Provider } from 'react-redux'
 import store from './app/store.js'
+import SocketProvider from './contextApi/SocketProvider.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -13,7 +14,9 @@ createRoot(document.getElementById('root')).render(
     <Toaster  position='bottom-center' toastOptions={{
       className: 'border-none bg-[#828282] text-white aling-center'
     }}  />
+    <SocketProvider>
     <App />
+    </SocketProvider>
     </Provider>
   // </StrictMode>
 )
