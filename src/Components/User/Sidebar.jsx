@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import{ useRef, useState, useEffect , memo} from 'react'
 import Logo from '../../assets/logo-white.svg';
 import HomeLogo from '../../assets/homeIcon.svg';
 import TrendingLogo from '../../assets/trending.svg';
@@ -75,7 +75,7 @@ function Sidebar() {
         </div>}
         <button ref={moreButtonRef} className='mt-auto mb-5  w-1/6 gap-2 flex justify-end items-center' onClick={handleClick}><img src={MoreLogo} /><span className='text-white text-md font-medium  '>More</span></button>
       </div>
-      <SeachModel isOpen={isOpenSearch} />
+      {isOpenSearch && <SeachModel isOpen={isOpenSearch} />}
       <SocketProvider>
       <Notification isOpen={isOpenNotification} />
       </SocketProvider>
@@ -84,4 +84,4 @@ function Sidebar() {
   )
 }
 
-export default Sidebar
+export default memo(Sidebar)
