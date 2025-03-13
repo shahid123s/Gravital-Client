@@ -24,6 +24,7 @@ import { ChatProvider } from './contextApi/chatContext'
 import Trending from './Pages/User/Trending'
 import PostPage from './Pages/User/PostPage'
 import UpdatePage from './Pages/UpdatePage'
+import NotFoundPage from './Pages/NotFoundPage'
 // import StreamingPage from './Pages/User/StreamingPage'
 
 
@@ -73,7 +74,7 @@ function App() {
               <Route path='favourites' element={<Favourites />} />
             </Route>
             <Route path='/admin'>
-              <Route index element={<AdminLogin />}  />
+              <Route index element={<AdminLogin />} />
               <Route path='login' element={<AdminLogin />} />
               <Route path='home' element={<Navigate to={'/admin/dashboard'} replace />} />
               <Route path='dashboard' element={<AdminHome />} />
@@ -81,8 +82,8 @@ function App() {
               <Route path='posts' element={<AdminPosts />} />
               <Route path='reports' element={<AdminReport />} />
             </Route>
-            <Route path='*' element={<div>Not Found</div>} />
-            <Route path='/not-found' element={<Navigate to={<div>Not Found</div>}  replace/> } />
+            <Route path='*' element={<NotFoundPage/>} />
+            <Route path='/not-found' element={<Navigate to={'/page/not-found'}  />} />
           </Routes>
         </Router>
       </Suspense>

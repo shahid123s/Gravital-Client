@@ -6,7 +6,7 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily : {
+      fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
         numberFont: ['Port Lligat Slab', 'serif']
       },
@@ -18,7 +18,10 @@ export default {
         '70': '70vh'
       },
       width: {
-        '19': '19px' 
+        '19': '19px'
+      },
+      animation: {
+        'spin-slow': 'spin 5s linear infinite'
       }
     },
   },
