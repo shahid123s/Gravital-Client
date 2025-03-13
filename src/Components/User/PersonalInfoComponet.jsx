@@ -21,6 +21,8 @@ function PersonalInfoComponet() {
       }
     },[])
 
+    const today = new Date().toISOString().split("T")[0];
+
     const handleChange = (event) => {
         const {value, name} = event.target;
         setUserData({...userData, [name] : value});
@@ -77,6 +79,7 @@ function PersonalInfoComponet() {
           placeholder='Value'
           required
           onChange={handleChange}
+          max={today}
           className='w-76 rounded-md px-3 py-2  border-1 border-black'
         />
       </div>
