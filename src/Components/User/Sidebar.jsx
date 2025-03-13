@@ -76,9 +76,9 @@ function Sidebar() {
         <button ref={moreButtonRef} className='mt-auto mb-5  w-1/6 gap-2 flex justify-end items-center' onClick={handleClick}><img src={MoreLogo} /><span className='text-white text-md font-medium  '>More</span></button>
       </div>
       {isOpenSearch && <SeachModel isOpen={isOpenSearch} />}
-      <SocketProvider>
+
       <Notification isOpen={isOpenNotification} />
-      </SocketProvider>
+
     </>
 
   )
