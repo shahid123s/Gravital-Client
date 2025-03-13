@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
+import  { useState, useRef, } from 'react'
+import PropType from 'prop-types'
 import MediaButton from '../assets/media.svg';
 import SheduleButton from '../assets/schedule.svg';
 import PollButton from '../assets/poll.svg'
@@ -41,13 +42,13 @@ function AddPostComponent({ profileImage }) {
     mediaRef.current.click();
   }
 
-  const onCropComplete = (_, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels); // Update cropped area
-  }
+  // const onCropComplete = (_, croppedAreaPixels) => {
+  //   setCroppedAreaPixels(croppedAreaPixels); // Update cropped area
+  // }
 
-  const handleImageLoad = () => {
+  // const handleImageLoad = () => {
 
-  }
+  // }
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -167,5 +168,10 @@ function AddPostComponent({ profileImage }) {
   </div>
   )
 }
+
+AddPostComponent.propTypes = {
+  profileImage: PropType.string.isRequired
+}
+
 
 export default AddPostComponent

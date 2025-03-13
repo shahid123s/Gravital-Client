@@ -21,9 +21,7 @@ import Archive from './Pages/User/Archive'
 // import BroadcasterPage from './Pages/User/sream/BroadcasterPage'
 import MessagePage from './Pages/User/MessagePage'
 import { ChatProvider } from './contextApi/chatContext'
-import SeachPage from './Components/Modals/SearchModel'
 import Trending from './Pages/User/Trending'
-import PostCard from './Components/PostCard'
 import PostPage from './Pages/User/PostPage'
 import UpdatePage from './Pages/UpdatePage'
 // import StreamingPage from './Pages/User/StreamingPage'
@@ -31,7 +29,7 @@ import UpdatePage from './Pages/UpdatePage'
 
 const Register = lazy(() => import('./Pages/User/Register'));
 const PersonalInformtion = lazy(() => import('./Pages/User/PersonalInformtion'));
-const StreamingPage = lazy(() => import('./Pages/User/StreamingPage'));
+// const StreamingPage = lazy(() => import('./Pages/User/StreamingPage'));
 
 function App() {
 
