@@ -5,12 +5,12 @@ import SiteLogo from '../assets/gravityLogo.png'
 
 function NotFoundPage() {
   return (
-    <div className='bg-[#121212] flex flex-col justify-center items-center h-screen w-[100%] font-poppins text-lg text-white'>
+    <div className='bg-[#121212] flex flex-col gap justify-center items-center h-screen w-[100%] font-poppins text-lg text-white'>
     {/* Add the spin animation */}
     <motion.img 
         src={SiteLogo} 
         alt="Gravital Logo" 
-        className="w-64"
+        className="w-64 pb-5"
         initial={{ scale: 0.8, opacity: 0.5 }} // Start smaller and slightly transparent
         animate={{ scale: 1, opacity: 1 }} // Grow to normal size
         transition={{
