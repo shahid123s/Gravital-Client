@@ -54,7 +54,7 @@ function App() {
               <Route path='profile' element={<UserProfile />} />
               <Route path='trending' element={<Trending />} />
               <Route path='post/:postId' element={<PostPage />} />
-              {/* <Route path='live' element={<LivePage />} /> */}
+              <Route path='live' element={<UpdatePage />} />
               {/* <Route path='okay' element={<Video />} /> */}
               {/* <Route path='stream' element={<BroadcasterPage/>} /> */}
               <Route path='message' element={
