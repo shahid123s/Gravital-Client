@@ -25,6 +25,7 @@ import Trending from './Pages/User/Trending'
 import PostPage from './Pages/User/PostPage'
 import UpdatePage from './Pages/UpdatePage'
 import NotFoundPage from './Pages/NotFoundPage'
+import AccountPrivacyPage from './Pages/User/Settings/AccountPrivacyPage'
 // import StreamingPage from './Pages/User/StreamingPage'
 
 
@@ -63,11 +64,10 @@ function App() {
                 </ChatProvider>
               } />
 
-              <Route path='/:username' element={<UserProfile isCurrentUser={false} />} />
               <Route path='settings'   >
                 <Route index element={<Navigate to="edit-profile" replace />} />
                 <Route path='edit-profile' element={<Settings />} />
-                <Route path='account-privacy' element={<Settings />} />
+                <Route path='account-privacy' element={<AccountPrivacyPage />} />
                 <Route path='archive' element={<Archive />} />
                 <Route path='*' element={<UpdatePage />} />
               </Route>
@@ -82,6 +82,7 @@ function App() {
               <Route path='posts' element={<AdminPosts />} />
               <Route path='reports' element={<AdminReport />} />
             </Route>
+              <Route path='/:username' element={<UserProfile isCurrentUser={false} />} />
             <Route path='*' element={<NotFoundPage/>} />
             <Route path='/not-found' element={<Navigate to={'/page/not-found'}  />} />
           </Routes>

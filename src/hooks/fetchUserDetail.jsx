@@ -25,7 +25,7 @@ const useFetchUserData = (username) => {
     } catch (err) {
       setError(err.message || 'Error fetching user data');
       toast.error('User Not Found'|| 'Error fetching user data');
-      navigate('/not-found')
+      // navigate('/not-found')
       setLoading(false);
     }
   };
