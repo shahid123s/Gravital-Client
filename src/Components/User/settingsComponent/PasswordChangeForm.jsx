@@ -31,7 +31,7 @@ function PasswordChangeForm({setClose}) {
 
         try {
             const response = await axiosInstance.patch('/user/change-password', passwords);
-            toast.success(response.data.message)
+            toast.success('Password Changed Successfully')
             setClose()
 
         } catch (error) {
