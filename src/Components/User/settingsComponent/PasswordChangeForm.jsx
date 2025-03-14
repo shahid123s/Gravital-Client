@@ -27,8 +27,7 @@ function PasswordChangeForm() {
         if(newPassword !== confirmPassword) return toast.error('Passwords do not match')
         if(newPassword === currentPassword) return toast.error('New password cannot be the same as the current password')
         const error = await validate({password: passwords.newPassword})
-    console.log(error);
-        if(error) return toast.error(error.password)
+        if(error?.password) return toast.error(error.password)
 
         try {
             const response = await axiosInstance.patch('/user/change-password', passwords);
