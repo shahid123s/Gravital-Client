@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { axiosInstance } from '../../../utilities/axios';
 
 
-function PasswordChangeForm() {
+function PasswordChangeForm({setClose}) {
     const [passwords, setPasswords] = useState({
         currentPassword: '',
         newPassword: '',
@@ -31,7 +31,8 @@ function PasswordChangeForm() {
 
         try {
             const response = await axiosInstance.patch('/user/change-password', passwords);
-            console.log(response);
+            toast.success(response.data.message)
+            setClose()
 
         } catch (error) {
             toast.error(error.response.data.message)
