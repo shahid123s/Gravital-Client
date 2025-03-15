@@ -7,7 +7,7 @@ const username = Cookies.get('username');
 
 export const useSocket = () => useContext(SocketContext);
 
-const socket = io('http://localhost:8000', {
+const socket = io(import.meta.env.VITE_SOCKET_URL, {
     transports: ["websocket", "polling"],
     withCredentials: true,
     autoConnect: false, // Prevents auto-connect on mount
