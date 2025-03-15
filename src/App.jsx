@@ -26,6 +26,7 @@ import PostPage from './Pages/User/PostPage'
 import UpdatePage from './Pages/UpdatePage'
 import NotFoundPage from './Pages/NotFoundPage'
 import AccountPrivacyPage from './Pages/User/Settings/AccountPrivacyPage'
+import LikedPost from './Pages/User/LIkedPost'
 // import StreamingPage from './Pages/User/StreamingPage'
 
 
@@ -56,6 +57,7 @@ function App() {
               <Route path='trending' element={<Trending />} />
               <Route path='post/:postId' element={<PostPage />} />
               <Route path='live' element={<UpdatePage />} />
+              <Route path='liked' element={<LikedPost />} />
               {/* <Route path='okay' element={<Video />} /> */}
               {/* <Route path='stream' element={<BroadcasterPage/>} /> */}
               <Route path='message' element={

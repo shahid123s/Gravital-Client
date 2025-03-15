@@ -18,7 +18,7 @@ function Archive() {
   return (
     <div className=' min-h-screen flex '>
         <Sidebar/>
-        <div className='min-h-full ml-56 bg-[#757575] w-full flex flex-col' >
+        <div className='min-h-full ml-56 bg-[#121212] w-full flex flex-col' >
         <h1 className='bg-inherit text-4xl pl-4 pt-2 text-white font-poppins'>Archive Posts</h1>
 
               {loading && <Spinner/>}
