@@ -6,7 +6,7 @@ import useLikedPosts from '../../hooks/fetchLikedPost'
 import PostModal from '../../Components/Modals/PostModal'
 import OPTION_HEADER from '../../enum/optionHeader'
 
-function LikedPost() {
+function LikedPostPage() {
     const { error, likedPosts, loading } = useLikedPosts()
     const [isOpen, setIsOpen] = useState(false) 
     const [postData, setPostData] = useState(null);
@@ -46,4 +46,4 @@ function LikedPost() {
     )
 }
 
-export default LikedPost
+export default LikedPostPage
