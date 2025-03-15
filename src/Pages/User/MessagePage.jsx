@@ -19,9 +19,9 @@ function MessagePage() {
 
     return (
         <UserAuth>
+                <ChatProvider>
             <Sidebar />
 
-                <ChatProvider>
 
                     {loading && <Spinner />}
                     {!loading && <div className=' min-h-screen flex  '>
