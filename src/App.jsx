@@ -61,9 +61,9 @@ function App() {
               {/* <Route path='okay' element={<Video />} /> */}
               {/* <Route path='stream' element={<BroadcasterPage/>} /> */}
               <Route path='message' element={
-                <ChatProvider>
+
                   <MessagePage />
-                </ChatProvider>
+
               } />
 
               <Route path='settings'   >

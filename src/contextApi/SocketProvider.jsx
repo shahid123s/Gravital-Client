@@ -29,7 +29,7 @@ function SocketProvider({ children }) {
             socket.emit('createOnlineUser', { username });
         };
 
-        const handleDisconnect = () => console.log("Socket disconnected");
+        const handleDisconnect = () => console.log("Socket disconnected on here");
 
         socket.on("connect", handleConnect);
         socket.on("disconnect", handleDisconnect);
