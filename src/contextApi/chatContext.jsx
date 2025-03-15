@@ -48,7 +48,7 @@ export const ChatProvider = ({ children }) => {
     useEffect(() => {
         fetchChatList();
         if(!socket) return; 
-        // socket.connect();
+        socket.connect();
         setSocket(providedSocket?.socket);  
 
        
