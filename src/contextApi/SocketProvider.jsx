@@ -1,51 +1,56 @@
-import React, { createContext, useContext, useEffect, } from 'react'
-import { io, Socket } from 'socket.io-client';
-import Cookies from 'js-cookie';
+import React, { createContext, useContext, useEffect } from "react";
+import { io } from "socket.io-client";
+import Cookies from "js-cookie";
 
 const SocketContext = createContext();
-const username = Cookies.get('username');
+const username = Cookies.get("username");
 
 export const useSocket = () => useContext(SocketContext);
 
 const socket = io(import.meta.env.VITE_SOCKET_URL, {
-    transports: ["websocket", "polling"],
-    withCredentials: true,
-    autoConnect: false, // Prevents auto-connect on mount
-    auth: {
-        username,
-
-    }
+  transports: ["websocket", "polling"],
+  withCredentials: true,
+  autoConnect: false, // Don't auto-connect
+  auth: { username },
 });
 
 function SocketProvider({ children }) {
-    useEffect(() => {
-        if (!socket.connected) {
-            socket.connect();
-        }
+  useEffect(() => {
+    // Connect only if it's not already connected
+    if (!socket.connected) {
+      socket.connect();
+    }
 
-        // ✅ Ensure event listeners are added only once
-        const handleConnect = () => {
-            console.log("Socket connected:", socket.id);
-            socket.emit('createOnlineUser', { username });
-        };
+    socket.on("connect", () => {
+      console.log("Socket connected:", socket.id);
+      socket.emit("createOnlineUser", { username });
+    });
 
-        const handleDisconnect = () => console.log("Socket disconnected on here");
+    socket.on("disconnect", () => console.log("Socket disconnected"));
 
-        socket.on("connect", handleConnect);
-        socket.on("disconnect", handleDisconnect);
+    // Handle app close (but not refresh)
+    const handleClose = (event) => {
+      if (document.visibilityState === "hidden") {
+        console.log("App closed, disconnecting socket...");
+        socket.disconnect();
+      }
+    };
 
-        return () => {
-            socket.off("connect", handleConnect);
-            socket.off("disconnect", handleDisconnect);
-            socket.disconnect();
-        };
-    }, [socket]);
+    document.addEventListener("visibilitychange", handleClose);
+    window.addEventListener("beforeunload", handleClose);
 
-    return (
-        <SocketContext.Provider value={{ socket }}>
-            {children}
-        </SocketContext.Provider>
-    )
+    return () => {
+      document.removeEventListener("visibilitychange", handleClose);
+      window.removeEventListener("beforeunload", handleClose);
+      socket.disconnect();
+    };
+  }, []);
+
+  return (
+    <SocketContext.Provider value={{ socket }}>
+      {children}
+    </SocketContext.Provider>
+  );
 }
 
-export default SocketProvider
+export default SocketProvider;
