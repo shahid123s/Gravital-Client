@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { axiosInstance } from '../utilities/axios';
 
