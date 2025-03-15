@@ -13,7 +13,7 @@ function Home() {
 
    return (
       <UserAuth>
-         <div className=' h-screen flex '>
+         <div className=' min-h-screen flex '>
 
                <Sidebar />
             <div className='flex justify-evenly  w-full bg-[#121212]'>
