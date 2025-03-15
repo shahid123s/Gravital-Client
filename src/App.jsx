@@ -26,7 +26,7 @@ import PostPage from './Pages/User/PostPage'
 import UpdatePage from './Pages/UpdatePage'
 import NotFoundPage from './Pages/NotFoundPage'
 import AccountPrivacyPage from './Pages/User/Settings/AccountPrivacyPage'
-import LikedPost from './Pages/User/LIkedPost'
+import LikedPost from './Pages/User/LikedPost'
 // import StreamingPage from './Pages/User/StreamingPage'
 
 
