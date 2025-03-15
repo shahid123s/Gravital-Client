@@ -1,78 +1,101 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { axiosInstance } from "../utilities/axios";
+import { io } from "socket.io-client";
 import Cookies from 'js-cookie';
 import { useSocket } from "./SocketProvider";
 
+
 const ChatContext = createContext();
-const username = Cookies.get('username');
+const username = Cookies.get('username')
 
 export const useChat = () => useContext(ChatContext);
 
+// // ✅ Ensure socket is only created once
+// const socket = io('http://localhost:8000', {
+//     transports: ["websocket", "polling"],
+//     withCredentials: true,
+//     autoConnect: false, // Prevents auto-connect on mount
+//     auth: {
+//         username,
+//     }
+// });
+
 export const ChatProvider = ({ children }) => {
-    const socket = useSocket()?.socket;
+    const providedSocket = useSocket()?.socket;
+    const [socket, setSocket] = useState(providedSocket?.socket);
     const [loading, setLoading] = useState(false);  
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [chatList, setChatList] = useState([]);
     const [followList, setFollowList] = useState([]);
+    const [isReaded, setIsReaded] = useState(true)
+    const [lastMessageCount, setLastMessageCount] = useState(messages.length)
     const [conversations, setConversation] = useState(null);
     const [chatDetails, setchatDetails] = useState({});
 
     useEffect(() => {
-        if (!socket) return;
+        if (messages.length > lastMessageCount) {
+            setLastMessageCount(messages.length);
+        }
+    }, [messages])
 
-        // ✅ Prevent duplicate listeners
-        const handleReceiveMessage = (msg) => {
+    const fetchChatList = async () => {
+        const chatListResponse = await axiosInstance.get('/chat');
+        setChatList(chatListResponse.data.chatList);
+    };
+
+
+    useEffect(() => {
+        fetchChatList();
+        if(!socket) return; 
+        // socket.connect();
+        setSocket(providedSocket?.socket);  
+
+       
+
+        // ✅ Listen for new messages in real time
+        socket.on("receiveMessage", (msg) => {
             console.log("Received message:", msg);
             const messageWithUser = {
                 isCurrentUser: msg.username === username,
                 ...msg,
             };
-            setMessages((prev) => [messageWithUser, ...prev]);
-        };
 
-        socket.on("receiveMessage", handleReceiveMessage);
+            setMessages((prev) => [messageWithUser, ...prev,]);
+        });
 
         return () => {
-            socket.off("receiveMessage", handleReceiveMessage);
+            socket.off("receiveMessage");
         };
-    }, [socket]);
-
-    const fetchChatList = async () => {
-        try {
-            const chatListResponse = await axiosInstance.get('/chat');
-            setChatList(chatListResponse.data.chatList);
-        } catch (error) {
-            console.error("Error fetching chat list:", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchChatList();
-    }, []);
+    }, [socket]);''
 
     const handleChange = async (event) => {
         const value = event.target.value;
-        if (value === '') return setClose();
-        setIsOpen(true);
+        if(value === '') return setClose();
+        setIsOpen(true)
+        const filteredChatList = await axiosInstance.get('/user/search',{
+            params: {
+                username: value,
+            }
+        })
+        setFollowList(filteredChatList.data.usersList)   ;
 
-        try {
-            const filteredChatList = await axiosInstance.get('/user/search', { params: { username: value } });
-            setFollowList(filteredChatList.data.usersList);
-        } catch (error) {
-            console.error("Error fetching search results:", error);
-        }
-    };
+    }
 
+  
+
+
+    /** Fetch messages for a conversation */
     const handleClick = async (conversationId, chatDetails) => {
-        setchatDetails(chatDetails);
-        if (socket) socket.emit('joinRoom', conversationId);
+        setchatDetails(chatDetails)
+        socket.emit('joinRoom', conversationId);
 
         try {
             const response = await axiosInstance.get('/chat/message', {
                 params: { conversationId },
             });
             setConversation(conversationId);
+
             setMessages(response.data.messages);
         } catch (error) {
             console.error("Error fetching messages:", error);
@@ -80,18 +103,20 @@ export const ChatProvider = ({ children }) => {
     };
 
     const createChat = async (userId) => {
-        try {
-            await axiosInstance.post('/chat', { userId });
-            fetchChatList();
-            setClose();
-        } catch (error) {
-            console.error("Error creating chat:", error);
-        }
-    };
+        const response = await axiosInstance.post('/chat', {
+            userId,
+        });
+        fetchChatList();
+        
+        setClose()
 
+    }
+
+    /** Send a message */
     const sendMessage = async (conversationId, message) => {
         try {
-            if (!socket) return;
+            const newMessage = { content: message, sender: "You" };
+
             socket.emit('sendMessage', { roomId: conversationId, message, username });
 
             await axiosInstance.post('/chat/message', {
@@ -103,17 +128,15 @@ export const ChatProvider = ({ children }) => {
         }
     };
 
-    const setClose = () => setIsOpen(false);
+    const setClose = () => {
+        setIsOpen(false);
+    };
 
     const handleModel = async () => {
-        try {
-            const response = await axiosInstance.get('/follow/followings');
-            setFollowList(response.data.followList);
-            setIsOpen(true);
-        } catch (error) {
-            console.error("Error fetching follow list:", error);
-        }
-    };
+        const response = await axiosInstance.get('/follow/followings');
+        setFollowList(response.data.followList);
+        setIsOpen(true);
+    }
 
     return (
         <ChatContext.Provider value={{
@@ -125,7 +148,7 @@ export const ChatProvider = ({ children }) => {
             sendMessage,
             messages,
             setClose,
-            socket,
+            socket: socket,
             chatList,
             chatDetails,
             handleChange,
