@@ -21,7 +21,7 @@ export const useChat = () => useContext(ChatContext);
 // });
 
 export const ChatProvider = ({ children }) => {
-    const providedSocket = useSocket()?.socket;
+    const socket = useSocket()?.socket;
     // const [socket, setSocket] = useState(providedSocket?.socket);
     const [loading, setLoading] = useState(false);  
     const [isOpen, setIsOpen] = useState(false);
