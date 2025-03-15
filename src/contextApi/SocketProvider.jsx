@@ -39,7 +39,7 @@ function SocketProvider({ children }) {
             socket.off("disconnect", handleDisconnect);
             socket.disconnect();
         };
-    }, []);
+    }, [socket]);
 
     return (
         <SocketContext.Provider value={{ socket }}>
