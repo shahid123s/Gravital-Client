@@ -16,7 +16,7 @@ function Home() {
          <div className=' h-screen flex '>
 
                <Sidebar />
-            <div className='flex justify-evenly min-h-screen w-full bg-[#121212]'>
+            <div className='flex justify-evenly  w-full bg-[#121212]'>
                <Content profileImage={userDetails.profileImage} />
                <Suggestion userDetails={userDetails} />
             </div>
