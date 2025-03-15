@@ -10,13 +10,13 @@ import SocketProvider from './contextApi/SocketProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode >
+      <SocketProvider>
     <Provider store={store} >
     <Toaster  position='bottom-center' toastOptions={{
       className: 'border-none bg-[#828282] text-white aling-center'
     }}  />
-    <SocketProvider>
     <App />
-    </SocketProvider>
     </Provider>
+    </SocketProvider>
   // </StrictMode>
 )
