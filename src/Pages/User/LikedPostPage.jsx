@@ -18,7 +18,7 @@ function LikedPostPage() {
                     Liked Posts
                 </h1>
                 {loading && <Spinner />}
-                <div className='bg-inherit flex gap-3 mt-5 p-7'>
+                <div className='bg-inherit flex flex-wrap gap-3 mt-5 p-7'>
                 {!loading && likedPosts.length > 0 ? likedPosts.map((post) => (
                     <MiniPostCard
                         post={post.postId}
