@@ -66,7 +66,6 @@ export const ChatProvider = ({ children }) => {
 
         return () => {
             socket.off("receiveMessage");
-
         };
     }, [socket]);''
 
