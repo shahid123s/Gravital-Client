@@ -21,7 +21,7 @@ export const adminLogout = createAsyncThunk(
     'admin/logout',
     async (_, {rejectWithValue}) => {
         try {
-            const response = await axiosInstance.post('/logout');
+            const response = await axiosInstance.post('/auth/admin/logout');
             localStorage.removeItem('isAdmin')
             return response.data;
         } catch (error) {

@@ -21,8 +21,8 @@ export const useChat = () => useContext(ChatContext);
 // });
 
 export const ChatProvider = ({ children }) => {
-    const providedSocket = useSocket();
-    const [socket, setSocket] = useState(providedSocket?.socket);
+    const providedSocket = useSocket()?.socket;
+    // const [socket, setSocket] = useState(providedSocket?.socket);
     const [loading, setLoading] = useState(false);  
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
@@ -49,7 +49,7 @@ export const ChatProvider = ({ children }) => {
         fetchChatList();
         if(!socket) return; 
         // socket.connect();
-        setSocket(providedSocket?.socket);  
+        // setSocket(providedSocket?.socket);  
 
        
 
@@ -66,6 +66,7 @@ export const ChatProvider = ({ children }) => {
 
         return () => {
             socket.off("receiveMessage");
+
         };
     }, [socket]);''
 
