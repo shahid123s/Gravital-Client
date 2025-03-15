@@ -60,6 +60,7 @@ export const ChatProvider = ({ children }) => {
                 isCurrentUser: msg.username === username,
                 ...msg,
             };
+            console.log(msg.username)
 
             setMessages((prev) => [messageWithUser, ...prev,]);
         });
