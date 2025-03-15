@@ -50,12 +50,9 @@ export const ChatProvider = ({ children }) => {
     useEffect(() => {
         fetchChatList();
         if(!socket) return; 
-        // socket.connect();
         setSocket(providedSocket?.socket);  
-        console.log(socket, 'socket')   
-        // socket.on("connect", () => console.log("Socket connected:", socket.id));
-        // socket.on("disconnect", () => console.log("Socket disconnected"));
-
+        socket.connect();
+       
         // ✅ Listen for new messages in real time
         socket.on("receiveMessage", (msg) => {
             console.log("Received message:", msg);
